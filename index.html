@@ -111,6 +111,19 @@
   .life-tile b{display:block;margin-top:4px;font-size:15px}
   .life-tile.good{border-left:5px solid #5f7a5e}.life-tile.warn{border-left:5px solid #b48538}.life-tile.bad{border-left:5px solid #984b40}
   .work-card{font-size:12px;line-height:1.4;border-top:2px solid #8b7d67;padding-top:9px;margin-top:9px}
+  .summary-score{background:#fff8e9;border:1px solid #b9aa91;padding:11px 12px;margin:10px 0}
+  .summary-score .score-top{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+  .summary-score .score-label{font:700 11px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#5d5346}
+  .summary-score .score-number{font-size:23px;font-weight:bold}
+  .summary-score .score-word{font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+  .summary-score .score-bar{height:11px;background:#ddd1bd;border:1px solid #ad9e85;margin:8px 0 7px;overflow:hidden}
+  .summary-score .score-bar span{display:block;height:100%;background:#4f6954;transition:width .35s}
+  .summary-score.warn .score-bar span{background:#a97832}
+  .summary-score.bad .score-bar span{background:#94483d}
+  .summary-detail{font-size:11px;line-height:1.45;color:#5d5449}
+  .summary-detail b{color:#2e2a25}
+  .family-line{font-size:12px;line-height:1.45;margin-top:10px;padding-top:9px;border-top:1px solid #c8baa1}
+
   .story-prose{font-size:19px;line-height:1.64;max-width:850px;margin:14px 0;color:#28241f}
   .story-prose p{margin:0 0 12px}.story-prose p:first-child:first-letter{font-size:2.35em;float:left;line-height:.8;padding:6px 6px 0 0;color:#7f332d;font-weight:bold}
   .economy-notice{background:#2d2a25;color:#f6ead4;border-left:6px solid #b9914b;padding:13px 15px;margin:0 0 12px;line-height:1.45}
@@ -170,6 +183,30 @@ const EXPLAINERS = {
 };
 
 const STORY_FLAVOR = {
+
+  installment_plan:`<p>The department-store window glows after dark. A salesman points to a shiny radio and refrigerator and tells you that modern families do not wait until they can afford something—they make payments.</p><p>${game.family.spouse} studies the little monthly figure, then the total price. “Funny,” ${game.family.spouse} says. “The small number is printed much bigger.”</p>`,
+  farm_more_acres:`<p>You stand at the edge of the field doing the same arithmetic every farmer around you is doing. Prices are low. If one bushel earns too little, maybe the answer is more bushels.</p><p>The trouble is that everybody else's pencil seems to be reaching the same conclusion.</p>`,
+  worker_company_stock:`<p>At lunch, men compare stock tips the way they compare batting averages. A coworker says owning shares is how a working man finally gets on the other side of prosperity.</p><p>You know your paycheck already depends on the company. The question is whether your savings should too.</p>`,
+  business_expansion_loan:`<p>Your banker shakes your hand and talks about growth. A second counter, more inventory, maybe a larger storefront. In 1928, borrowing money feels less like danger and more like proof that somebody believes in you.</p>`,
+  worker_hours_cut:`<p>The foreman does not call it a layoff. He calls it “sharing the work.” Your week is cut sharply, which means your pay envelope is thinner but your name is still on the rolls.</p><p>${game.family.spouse} turns the envelope over. “So we’re employed,” ${game.family.spouse} says, “but not enough to live?”</p>`,
+  farm_auction:`<p>A notice has been nailed to the post near the road. At breakfast, nobody mentions it until ${game.family.younger} asks why strangers keep slowing down to read the sign.</p><p>A mortgage used to be paperwork. Now it feels like somebody standing at the edge of the field measuring what could be taken.</p>`,
+  supplier_freeze:`<p>Your wholesaler has stamped the new invoice CASH ON DELIVERY. Customers still ask you to carry their accounts, which means everybody wants credit from you while nobody wants to give credit to you.</p>`,
+  doctor_bill:`<p>${game.family.younger} wakes hot with fever. The cough is deeper than yesterday. A doctor costs money you have already promised to the grocer, landlord, bank, or supplier.</p><p>${game.family.spouse} puts a cool cloth on the child’s forehead. The household budget has become a medical decision.</p>`,
+  pawn_goods:`<p>The pawnbroker turns your radio over in his hands. It once made the living room feel modern. Now it is worth a few weeks of groceries.</p><p>Behind you, another customer is carrying a winter coat under one arm.</p>`,
+  school_or_work:`<p>${game.family.older} is old enough to understand the arithmetic. School costs time; work might bring home cash. At supper, ${game.family.older} says, “I can quit for a while. Just until things get better.”</p><p>Nobody at the table knows how long “a while” will be.</p>`,
+  neighbor_help:`<p>A neighbor knocks after dark carrying a sack of potatoes. “You fixed my fence last spring,” he says. “Call it even.” A week later, his own pantry is nearly bare.</p>`,
+  bank_holiday:`<p>The radio announces that banks across the country will temporarily close. For a moment, the phrase “bank holiday” sounds almost cheerful. Then ${game.family.spouse} asks the only question that matters: “Can we get our money?”</p>`,
+  migration_choice:`<p>A postcard arrives from someone who left months ago. The picture on the front shows sunshine. The message on the back mentions crowded camps, scarce jobs, and wages lower than promised.</p><p>Still, a road leading somewhere can look better than a road that ends at your own front gate.</p>`,
+  family_odd_job:`<p>${game.family.spouse} hears that laundry, sewing, boarders, domestic work, or another small job might bring in a little cash. It is not the life either of you planned, but planning has become a luxury.</p>`,
+  relatives_arrive:`<p>Two relatives arrive with a suitcase and a story that sounds too much like your own. Their landlord wanted rent. Their employer wanted fewer workers. They ask if they can stay “for a little while.”</p>`,
+  bank_reform:`<p>A newspaper article explains new banking rules and federal deposit insurance. The words are technical. The family understands the practical version: maybe a bank account will not feel like a gamble forever.</p>`,
+  soil_conservation:`<p>A county agent walks your field and talks about contour plowing, grasses, and protecting topsoil. The advice does not raise crop prices, but it might keep the land itself from blowing or washing away.</p>`,
+  business_recovery:`<p>For the first time in years, customers enter your shop talking about what they might buy next month instead of what they cannot pay for last month.</p><p>You have learned not to trust optimism too quickly.</p>`,
+  relief_cutback:`<p>A rumor passes down the work crew before the foreman confirms it: the rolls are being cut. Government work felt temporary when you first got it. It feels much less temporary when your family depends on the paycheck.</p>`,
+  union_strike:`<p>The plant gate is crowded before dawn, but not with men going inside. Picket signs rise above coats and hats. Management says the strike threatens recovery. Workers say recovery that leaves them powerless is not much of a recovery.</p>`,
+  adult_child_future:`<p>Your children are adults now. The Depression has shaped what they expect from work, money, marriage, and security. ${game.family.older} has an opportunity elsewhere, which could help the family—or pull it farther apart.</p>`,
+  savings_rebuild:`<p>You have survived long enough to possess something that once seemed ordinary: a small amount of money not already promised to somebody else.</p><p>The question is whether the Depression has taught you caution or fear.</p>`,
+
  farmer_weak_prices:`<p>The morning paper calls it prosperity. You read that line twice, then look through the kitchen window at a barn roof that still needs patching and a mortgage book that does not care what the newspaper says.</p><p>At the feed store, another farmer mutters that wartime prices never really came back. The machinery salesman taps a glossy tractor advertisement and tells you that the answer is simple: produce more.</p>`,
  worker_boom:`<p>The whistle blows before sunrise. Your lunch pail knocks against your knee as you join the stream of workers heading through the gate. The pay envelope is steady enough that, for once, the future feels ordinary.</p><p>At supper, the children argue over a radio advertised in the department-store window. “Everybody has one now,” your daughter says. The advertisement underneath promises: <em>small payments—easy terms.</em></p>`,
  business_credit:`<p>The bell over the shop door barely stops ringing. Neighbors buy coffee, flour, shirts, tools—and more of them are asking you to write the amount in the little book behind the counter.</p><p>Your supplier calls it modern business. Your spouse calls it money you do not actually have yet. Both of them have a point.</p>`,
@@ -295,12 +332,12 @@ function renderArtifact(sceneId){
     if(game.variant==='coal') return photo('coal_child','Children experienced the economic crisis through the conditions surrounding their families’ work and housing.');
     return photo('unemployed','The loss of a paycheck was not an abstract statistic. It changed the rhythm and dignity of daily life.');
   }
-  if(sceneId==='relief_1932') return photo('relief','Relief lines included people who had been self-supporting before the Depression.');
-  if(sceneId==='work_search') return photo('unemployed','Long searches for work became a defining experience for millions of Americans.');
-  if(sceneId==='family_food') return photo('poor_family','Hunger, poor housing, and inadequate clothing often appeared together as household resources disappeared.');
-  if(sceneId==='housing_pressure' || sceneId==='homelessness') return photo('hooverville','Makeshift settlements became visible symbols of unemployment, eviction, and housing loss.');
-  if(sceneId==='dust_plains' || sceneId==='dust_letter' || sceneId==='family_separation') return photo('migration','Economic and environmental pressure pushed families onto the road in search of work, relatives, or a place they could survive.');
-  if(sceneId==='election_change' || sceneId==='social_security' || sceneId==='wpa_scene') return photo('fdr','The federal government—and Roosevelt personally—became unusually present in the daily lives and conversations of Depression-era Americans.');
+  if(sceneId==='relief_1932' || sceneId==='neighbor_help') return photo('relief','Relief lines included people who had been self-supporting before the Depression.');
+  if(sceneId==='work_search' || sceneId==='worker_hours_cut') return photo('unemployed','Long searches for work became a defining experience for millions of Americans.');
+  if(sceneId==='family_food' || sceneId==='doctor_bill' || sceneId==='school_or_work') return photo('poor_family','Hunger, poor housing, and inadequate clothing often appeared together as household resources disappeared.');
+  if(sceneId==='housing_pressure' || sceneId==='homelessness' || sceneId==='farm_auction' || sceneId==='relatives_arrive') return photo('hooverville','Makeshift settlements became visible symbols of unemployment, eviction, and housing loss.');
+  if(sceneId==='dust_plains' || sceneId==='dust_letter' || sceneId==='family_separation' || sceneId==='migration_choice') return photo('migration','Economic and environmental pressure pushed families onto the road in search of work, relatives, or a place they could survive.');
+  if(sceneId==='election_change' || sceneId==='social_security' || sceneId==='wpa_scene' || sceneId==='bank_holiday' || sceneId==='bank_reform') return photo('fdr','The federal government—and Roosevelt personally—became unusually present in the daily lives and conversations of Depression-era Americans.');
   if(sceneId==='recession_1937' || sceneId==='family_reunion' || sceneId==='final_opportunity') return photo('recovery','By the end of the decade, recovery remained uneven. The image’s own caption looks forward to wartime prosperity.');
 
   return '';
@@ -320,30 +357,90 @@ function freshState(role, variant){
     hardship:0, criticalTurns:0, housed:true, familySeparated:false, childAway:false,
     spouseWorking:false, olderChildWorking:false, bankFailed:false, reliefReceived:false,
     wpa:false, aaa:false, union:false, socialSeen:false, wealthBreak:false,
-    flags:{}, seen:[], currentYear:1925, chapterPressureApplied:{1:true},
-    family:{self:'You', surname:'', spouse:'your spouse', older:'your 14-year-old son', younger:'your 9-year-old daughter'}
+    flags:{}, seen:[], experiences:[], currentYear:1925, chapterPressureApplied:{1:true},
+    family:{self:'You', surname:'', spouse:'your spouse', older:'your 9-year-old son', younger:'your 6-year-old daughter'}
   };
   const profiles = {
-    farmer_plains:{cash:620,assets:8600,debt:5050,income:920,specialty:72,specialtyLabel:'Soil & Crop',employment:'Farm owner — western Oklahoma', flags:{region:'plains'}, family:{self:'Cal Bennett',surname:'Bennett',spouse:'Clara',older:'Tom',younger:'Ruth'}},
-    farmer_tn:{cash:610,assets:7900,debt:4300,income:980,specialty:76,specialtyLabel:'Soil & Crop',employment:'Farm owner — rural Tennessee', flags:{region:'tn'}, family:{self:'Eli Sutton',surname:'Sutton',spouse:'May',older:'Harold',younger:'Annie'}},
-    worker_detroit:{cash:420,assets:2400,debt:1420,income:1600,specialty:75,specialtyLabel:'Job Security',employment:'Employed — Detroit auto plant', flags:{industry:'auto'}, family:{self:'Frank Russo',surname:'Russo',spouse:'Rose',older:'Joey',younger:'Lena'}},
-    worker_coal:{cash:320,assets:1800,debt:980,income:1180,specialty:65,specialtyLabel:'Job Security',employment:'Employed — Appalachian coal mine', flags:{industry:'coal'}, family:{self:'Virgil Hale',surname:'Hale',spouse:'Martha',older:'Earl',younger:'June'}},
-    business_urban:{cash:1180,assets:5900,debt:3025,income:2050,specialty:80,specialtyLabel:'Customer Demand',employment:'Owner — Chicago neighborhood grocery', flags:{market:'urban'}, family:{self:'Samuel Adler',surname:'Adler',spouse:'Rebekah',older:'David',younger:'Miriam'}},
-    business_town:{cash:1040,assets:5400,debt:2725,income:1820,specialty:76,specialtyLabel:'Customer Demand',employment:'Owner — Tennessee Main Street store', flags:{market:'town'}, family:{self:'Walter Pierce',surname:'Pierce',spouse:'Louise',older:'Billy',younger:'Sarah'}}
+    farmer_plains:{cash:690,assets:8750,debt:4900,income:980,specialty:72,specialtyLabel:'Soil & Crop',employment:'Farm owner — western Oklahoma', flags:{region:'plains'}, family:{self:'Cal Bennett',surname:'Bennett',spouse:'Clara',older:'Tom',younger:'Ruth'}},
+    farmer_tn:{cash:680,assets:8050,debt:4150,income:1030,specialty:76,specialtyLabel:'Soil & Crop',employment:'Farm owner — rural Tennessee', flags:{region:'tn'}, family:{self:'Eli Sutton',surname:'Sutton',spouse:'May',older:'Harold',younger:'Annie'}},
+    worker_detroit:{cash:480,assets:2500,debt:1350,income:1660,specialty:75,specialtyLabel:'Job Security',employment:'Employed — Detroit auto plant', flags:{industry:'auto'}, family:{self:'Frank Russo',surname:'Russo',spouse:'Rose',older:'Joey',younger:'Lena'}},
+    worker_coal:{cash:370,assets:1900,debt:920,income:1240,specialty:65,specialtyLabel:'Job Security',employment:'Employed — Appalachian coal mine', flags:{industry:'coal'}, family:{self:'Virgil Hale',surname:'Hale',spouse:'Martha',older:'Earl',younger:'June'}},
+    business_urban:{cash:1320,assets:6100,debt:2900,income:2150,specialty:80,specialtyLabel:'Customer Demand',employment:'Owner — Chicago neighborhood grocery', flags:{market:'urban'}, family:{self:'Samuel Adler',surname:'Adler',spouse:'Rebekah',older:'David',younger:'Miriam'}},
+    business_town:{cash:1160,assets:5550,debt:2600,income:1900,specialty:76,specialtyLabel:'Customer Demand',employment:'Owner — Tennessee Main Street store', flags:{market:'town'}, family:{self:'Walter Pierce',surname:'Pierce',spouse:'Louise',older:'Billy',younger:'Sarah'}}
   };
   Object.assign(base, profiles[role+'_'+variant]);
+  base.startingCash=base.cash;
+  base.startingIncome=base.income;
+  base.startingNetWorth=Math.round(base.assets+base.cash-base.debt);
   return base;
 }
 
 function clamp(v,min=0,max=100){return Math.max(min,Math.min(max,v));}
 function money(v){const sign=v<0?'-':''; return sign+'$'+Math.abs(Math.round(v)).toLocaleString();}
 function netWorth(){return Math.round(game.assets + game.cash - game.debt);}
+function financesScore(){
+  const startCash=Math.max(1,game.startingCash||game.cash||1);
+  const startIncome=Math.max(1,game.startingIncome||game.income||1);
+  const startNW=Math.max(1,game.startingNetWorth||netWorth()||1);
+
+  const liquidity=clamp((game.cash/startCash)*70,0,100);
+  const income=clamp((game.income/startIncome)*80,0,100);
+  const debtRatio=game.assets>0?game.debt/game.assets:1.5;
+  const debtHealth=clamp(100-(debtRatio*80),0,100);
+  const wealth=clamp((Math.max(0,netWorth())/startNW)*70,0,100);
+  const housing=clamp(game.housing);
+
+  return clamp(Math.round(
+    liquidity*.20 +
+    income*.25 +
+    debtHealth*.20 +
+    wealth*.15 +
+    housing*.20
+  ));
+}
+
+function familyHealthScore(){
+  // The visible health score is a composite:
+  // physical condition + food security + morale/spirits.
+  // Food matters most, while morale has a concrete but smaller effect.
+  return clamp(Math.round(
+    game.health*.45 +
+    game.food*.35 +
+    game.morale*.20
+  ));
+}
+
+function visibleScores(){
+  return {finances:financesScore(), familyHealth:familyHealthScore()};
+}
+
+function foodWord(v){
+  if(v>=78)return 'Secure';
+  if(v>=58)return 'Adequate';
+  if(v>=38)return 'Thin';
+  if(v>=20)return 'Scarce';
+  return 'Critical';
+}
+function spiritsWord(v){
+  if(v>=78)return 'Hopeful';
+  if(v>=58)return 'Holding';
+  if(v>=38)return 'Worn';
+  if(v>=20)return 'Low';
+  return 'Broken';
+}
+function homeWord(v){
+  if(v>=70)return 'Secure';
+  if(v>=48)return 'Strained';
+  if(v>=25)return 'At risk';
+  return 'Unstable';
+}
+
 function roleName(){return game.role==='farmer'?'Farmer':game.role==='worker'?'Wage Worker':'Small Business Owner';}
 function variantName(){
   const m={plains:'Southern Great Plains',tn:game.role==='farmer'?'Tennessee / Southeast':'Small-town Tennessee',detroit:'Detroit Auto Industry',coal:'Appalachian Coal Country',urban:'Chicago Neighborhood'};
   return m[game.variant]||game.variant;
 }
-function familyAges(year=game.currentYear){const d=year-1925;return {older:14+d,younger:9+d};}
+function familyAges(year=game.currentYear){const d=year-1925;return {older:9+d,younger:6+d};}
 function pct(v){return clamp(Math.round(v));}
 function shuffle(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}return x;}
 function choose(a){return a[Math.floor(Math.random()*a.length)];}
@@ -375,14 +472,12 @@ function applyEffects(e={}){
   // spiral students are meant to notice in US.39 and US.41.
   if(game.chapter>=2){
     const jobless=/unemployed|closed|no permanent home/i.test(game.employment);
-    if(game.income<1200){game.cash-=35; game.food-=3; game.housing-=1; game.morale-=1;}
-    if(game.income<800){game.cash-=45; game.food-=5; game.housing-=3; game.health-=1; game.morale-=2;}
-    if(jobless){game.cash-=40; game.food-=5; game.housing-=4; game.morale-=4;}
-    if(game.cash<250){game.food-=3; game.morale-=2;}
-    if(game.cash<90){game.health-=1; game.food-=2;}
-    if(game.assets>0 && game.debt>game.assets*.65){game.housing-=3; game.morale-=2; game.cash-=20;}
-    if((game.chapter===3||game.chapter===4) && game.income<1400){game.food-=2; game.morale-=2;}
-    if(game.hardship>5){game.food-=2; game.morale-=1;}
+    if(game.income<1000){game.cash-=20; game.food-=2; game.housing-=1;}
+    if(game.income<650){game.cash-=25; game.food-=3; game.housing-=2; game.health-=1;}
+    if(jobless){game.cash-=25; game.food-=3; game.housing-=2; game.morale-=3;}
+    if(game.cash<140){game.food-=2; game.morale-=1;}
+    if(game.assets>0 && game.debt>game.assets*.72){game.housing-=2; game.morale-=1;}
+    if((game.chapter===3||game.chapter===4) && game.income<1100){game.morale-=1;}
   }
   if(game.cash<0){game.debt+=Math.abs(game.cash); game.cash=0;}
   game.debt=Math.max(0,game.debt); game.assets=Math.max(0,game.assets); game.income=Math.max(0,game.income);
@@ -402,26 +497,43 @@ function diffEffects(b){
 }
 function hardshipTick(){
   let h=0;
-  if(game.food<55) h+=1; if(game.food<35) h+=2; if(game.food<20) h+=3;
-  if(game.housing<55) h+=1; if(game.housing<30) h+=2; if(game.housing<15) h+=3;
-  if(game.health<60) h+=1; if(game.health<40) h+=2;
-  if(game.morale<50) h+=1; if(game.morale<30) h+=2;
-  if(game.debt>Math.max(1800,game.assets*.60)) h+=1;
-  if(game.cash<100) h+=1;
-  game.hardship=Math.max(0,game.hardship + h - (game.food>72&&game.housing>68&&game.cash>250?1:0));
-  if(game.hardship>=6){game.morale=clamp(game.morale-2);}
-  if(game.hardship>=8){game.health=clamp(game.health-2);}
-  if(game.food<40){game.health=clamp(game.health-3);}
-  if(game.food<25){game.criticalTurns++; game.health=clamp(game.health-7); game.morale=clamp(game.morale-5);}
-  else if(game.food<35){game.criticalTurns++; game.health=clamp(game.health-4); game.morale=clamp(game.morale-3);}
-  else if(game.food>45){game.criticalTurns=Math.max(0,game.criticalTurns-1);}
-  if(game.housing<18){game.food=clamp(game.food-2); game.health=clamp(game.health-2); game.morale=clamp(game.morale-4);}
-  if(game.housing<=5 && game.housed){
-    game.housed=false; game.assets=Math.max(0,game.assets-1800); game.housing=12; game.food=clamp(game.food-5); game.morale=clamp(game.morale-24);
+  if(game.food<48) h+=1; if(game.food<28) h+=2;
+  if(game.housing<45) h+=1; if(game.housing<22) h+=2;
+  if(game.morale<38) h+=1; if(game.morale<22) h+=1;
+  if(game.debt>Math.max(2200,game.assets*.72)) h+=1;
+  game.hardship=Math.max(0,game.hardship + h - (game.food>68&&game.housing>62&&game.morale>55?1:0));
+
+  // Food and morale now have a direct, concrete effect on physical health.
+  // Poor nutrition hurts health. Low morale/stress makes recovery harder.
+  if(game.food>=70 && game.morale>=60) game.health=clamp(game.health+1);
+  if(game.food<50) game.health=clamp(game.health-2);
+  if(game.food<30) game.health=clamp(game.health-3);
+  if(game.morale<40) game.health=clamp(game.health-1);
+  if(game.morale<22) game.health=clamp(game.health-2);
+  if(game.food<30 && game.morale<30) game.health=clamp(game.health-2);
+
+  if(game.food<16){
+    game.criticalTurns++;
+    game.health=clamp(game.health-5);
+    game.morale=clamp(game.morale-3);
+  } else if(game.food>38){
+    game.criticalTurns=Math.max(0,game.criticalTurns-1);
+  }
+
+  if(game.housing<=4 && game.housed){
+    game.housed=false;
+    game.assets=Math.max(0,game.assets-1300);
+    game.housing=14;
+    game.morale=clamp(game.morale-18);
     game.employment += ' | No permanent home';
   }
 }
-function deathCheck(){return game.chapter>=4 && ((game.criticalTurns>=3 && game.food<10 && game.health<48) || (game.hardship>=14 && game.food<15 && game.health<38));}
+function deathCheck(){
+  return game.chapter>=4 &&
+    game.criticalTurns>=4 &&
+    game.food<10 &&
+    familyHealthScore()<22;
+}
 
 function statusWord(v){
   if(v>=78)return ['Strong','good']; if(v>=58)return ['Holding','good']; if(v>=38)return ['Strained','warn']; if(v>=20)return ['In danger','bad']; return ['Crisis','bad'];
@@ -447,11 +559,11 @@ function applyChapterPressure(ch){
   if(ch<=1 || game.chapterPressureApplied[ch]) return null;
   game.chapterPressureApplied[ch]=true;
   let note='';
-  if(ch===2){game.assets*=.92;game.income*=.89;game.cash-=50;game.morale-=5;game.specialty-=3;note='The crash becomes an economy-wide contraction. Prices and asset values fall; employers, customers, and lenders grow cautious. Before your next decision, the national downturn has already reduced the value of what you own and what you can earn.';}
-  if(ch===3){game.assets*=.93;game.income*=.78;game.cash-=120;game.food-=8;game.housing-=3;game.health-=2;game.morale-=8;game.specialty-=6;note='By 1932, this is no longer a bad season. It is a system-wide emergency. Income contracts again, savings are being consumed, and the family budget tightens even if you made sensible choices.';}
-  if(ch===4){game.income*=.92;game.cash-=70;game.food-=4;game.housing-=3;game.health-=1;game.morale-=5;note='The Depression has lasted long enough to exhaust savings, relatives, charities, and patience. Your household enters this chapter carrying the accumulated weight of the previous years.';}
-  if(ch===5){game.income*=1.01;game.morale+=1;note='Some indicators begin to improve and federal programs put money back into parts of the economy. Recovery is real—but patchy, incomplete, and different from household to household.';}
-  if(ch===6){game.income*=1.00;game.morale+=0;note='By the mid-1930s, reform and partial recovery have changed the landscape. The Depression, however, has not vanished; another downturn will test how much stability you have rebuilt.';}
+  if(ch===2){game.assets*=.94;game.income*=.92;game.cash-=30;game.morale-=4;game.specialty-=2;note='The crash spreads into the broader economy. Asset values and earnings weaken even before your next decision.';}
+  if(ch===3){game.assets*=.95;game.income*=.86;game.cash-=65;game.food-=4;game.morale-=5;game.specialty-=4;note='By 1932, savings and wages are being squeezed across the country. Your household feels the national contraction even when you make sensible choices.';}
+  if(ch===4){game.income*=.96;game.cash-=30;game.food-=2;game.morale-=3;note='Years of depression have worn down savings, relatives, charities, and patience. The accumulated strain matters.';}
+  if(ch===5){game.income*=1.04;game.cash+=20;game.morale+=3;note='Federal programs and partial recovery begin returning income to parts of the economy. The improvement is uneven, but it is real.';}
+  if(ch===6){game.income*=1.03;game.cash+=15;game.morale+=2;note='Recovery and reform have created more stability than in 1932, though setbacks and unemployment remain possible.';}
   if(game.cash<0){game.debt+=Math.abs(game.cash);game.cash=0;}
   game.assets=Math.max(0,Math.round(game.assets));game.income=Math.max(0,Math.round(game.income));
   for(const k of ['food','housing','health','morale','specialty'])game[k]=clamp(game[k]);
@@ -522,11 +634,67 @@ scene('stock_fever',1,1928,'Everybody Has a Stock Tip',
  ],{behind:'Speculation did not single-handedly cause the Great Depression, but leverage and inflated stock prices increased financial vulnerability.',standards:['US39']}),
 
 scene('family_1928',1,1928,'A Family That Finally Feels Comfortable',
- s=>`For the first time in years, ${game.family.spouse} talks seriously about taking the children on a short trip and replacing worn clothes. Your son is 17 now; your daughter is 12.`,[
+ s=>`For the first time in years, ${game.family.spouse} talks seriously about taking the children on a short trip and replacing worn clothes. Your son is 12 now; your daughter is 9.`,[
   choice('Take the modest family trip.',[outcome(100,'The money is gone, but morale rises. Years later, the children will remember this as one of the last carefree moments of the decade.',{cash:-140,morale:11,health:2})]),
   choice('Skip the trip and add the money to emergency savings.',[outcome(100,'The children are disappointed. Your reserve is stronger.',{cash:180,morale:-3,savingsHabit:8})]),
   choice('Replace clothes and shoes, but postpone the trip.',[outcome(100,'It is not glamorous, but the family is more comfortable and you avoid new debt.',{cash:-95,health:3,morale:5})])
  ],{behind:'Household choices mattered, but no amount of personal thrift could control national demand, bank stability, or the availability of jobs.'}),
+
+
+scene('installment_plan',1,1927,'The Monthly Payment',
+ s=>`A store offers a modern household purchase for a small down payment and monthly installments. The salesman emphasizes how affordable the payment is, not how long you will owe it.`,[
+  choice('Buy on installment and enjoy it now.',[
+    outcome(100,'The family enjoys the purchase immediately. The payment joins the obligations that must be met even if income later falls.',{assets:160,debt:240,morale:8,creditRisk:9})
+  ]),
+  choice('Save first and postpone the purchase.',[
+    outcome(100,'It is less exciting, but your household keeps more flexibility and less fixed debt.',{cash:120,morale:-2,savingsHabit:8})
+  ]),
+  choice('Buy a cheaper used version for cash.',[
+    outcome(100,'You get some of the benefit without years of payments.',{cash:-80,assets:65,morale:4,savingsHabit:3})
+  ])
+ ],{behind:'Installment buying helped fuel 1920s consumer spending. It also meant some households entered the downturn already committed to monthly payments.',standards:['US39']}),
+
+scene('farm_more_acres',1,1927,'Produce More to Earn Less?',
+ s=>`Crop prices are weak. One answer seems obvious: plant more acres so the farm can sell more bushels. Thousands of other farmers are thinking the same way.`,[
+  choice('Plant every available acre.',[
+    outcome(70,'You harvest more, but a crowded market keeps prices weak. More production does not create more purchasing power.',{income:70,debt:110,specialty:-2}),
+    outcome(30,'A local shortage briefly improves your price and the larger crop pays well.',{cash:150,income:190,luck:2},{luckNote:'You got lucky. A local shortage temporarily protects you from the broader farm-price problem.'})
+  ]),
+  choice('Diversify and keep some acreage for household food.',[
+    outcome(100,'Cash income does not soar, but the family is less dependent on one crop and the grocery bill falls.',{income:20,food:7,specialty:6})
+  ]),
+  choice('Reduce planting and pay down a little debt.',[
+    outcome(100,'You surrender possible income in exchange for lower exposure.',{cash:-60,debt:-210,income:-20,savingsHabit:5})
+  ])
+ ],{roles:['farmer'],behind:'Farmers often responded to low prices by producing more. When many did so, greater supply could contribute to continued low prices.',standards:['US39']}),
+
+scene('worker_company_stock',1,1928,'A Piece of the Company',
+ s=>`Coworkers are talking about buying stock. Owning shares feels like a way to join the prosperity instead of merely working for it.`,[
+  choice('Invest a small amount you can afford to lose.',[
+    outcome(80,'The investment rises for now, but your family still keeps a cash reserve.',{cash:-120,assets:190,stockExposure:13,morale:3}),
+    outcome(20,'Your shares rise quickly and make the decision look brilliant.',{cash:-120,assets:300,stockExposure:17,luck:2},{luckNote:'You got lucky. Your shares outperform the market for a while.'})
+  ]),
+  choice('Keep savings separate from your employer and the market.',[
+    outcome(100,'You miss some gains but avoid tying both your job and your savings to the same boom.',{cash:120,savingsHabit:9})
+  ]),
+  choice('Borrow to buy a larger position.',[
+    outcome(100,'For now, leverage magnifies the gains—and the risk.',{cash:-70,assets:470,debt:300,stockExposure:28,marginExposure:22,creditRisk:6,morale:6})
+  ])
+ ],{roles:['worker'],behind:'When a household depended on the same expanding economy for wages, savings, and investments, a downturn could strike several sources of security at once.',standards:['US39']}),
+
+scene('business_expansion_loan',1,1928,'A Second Counter?',
+ s=>`Business has been good enough that a banker offers credit for expansion. More inventory and a larger storefront could increase profits—if customer demand stays strong.`,[
+  choice('Borrow and expand aggressively.',[
+    outcome(72,'Sales rise and the expansion looks smart, but debt service becomes a permanent obligation.',{assets:560,debt:470,income:250,specialty:7,creditRisk:12}),
+    outcome(28,'The expansion catches an unusually strong local boom.',{assets:720,debt:450,income:370,cash:140,luck:2},{luckNote:'You got lucky. Local demand stays stronger than expected.'})
+  ]),
+  choice('Make a small cash-funded improvement.',[
+    outcome(100,'Growth is modest, but you keep the business flexible.',{cash:-150,assets:180,income:90,specialty:4})
+  ]),
+  choice('Do not expand; build reserves.',[
+    outcome(100,'Competitors grow faster, but your cash position improves.',{cash:190,income:-25,savingsHabit:9})
+  ])
+ ],{roles:['business'],behind:'Expansion financed by debt worked while demand remained strong. When sales fell, fixed loan payments became much harder to carry.',standards:['US39']}),
 
 // CHAPTER 2
 scene('crash',2,1929,'October 1929',
@@ -618,6 +786,51 @@ scene('role_shock_business',2,1930,'Customers Stop Buying',
  ],{roles:['business'],behind:'Falling purchasing power hurt businesses, which cut workers, which reduced purchasing power again. That feedback loop helped deepen the Depression.',standards:['US39','US41']}),
 
 // CHAPTER 3
+
+scene('worker_hours_cut',2,1931,'Employed—Barely',
+ s=>`Management cuts hours instead of dismissing everyone. You still have a job, but your weekly pay is no longer enough to cover the household’s old budget.`,[
+  choice('Accept the reduced hours and cut every expense possible.',[
+    outcome(100,'You preserve a connection to the job, but food and morale tighten as the family lives on less.',{income:-250,cash:-50,food:-3,morale:-4,specialty:-4})
+  ]),
+  choice('Keep the job and search for evening work.',[
+    outcome(40,'You find occasional extra work. The income helps, though exhaustion grows.',{income:-150,cash:80,health:-4,morale:-1,luck:1}),
+    outcome(60,'Extra work is scarce because everyone else is looking too.',{income:-250,cash:-65,morale:-5,luck:-1})
+  ]),
+  choice('Quit and search for a full-time position elsewhere.',[
+    outcome(22,'You land another job before the savings are gone.',{income:-60,cash:20,morale:4,employment:'Employed — lower wage job',luck:3},{luckNote:'You got very lucky. Full-time openings were scarce.'}),
+    outcome(78,'You join the unemployed and immediately miss even the shortened paycheck.',{income:-720,cash:-100,food:-5,housing:-4,morale:-10,employment:'Unemployed',luck:-2})
+  ])
+ ],{roles:['worker'],behind:'The Depression produced wage cuts and short hours as well as complete unemployment. All reduced household purchasing power.',standards:['US39','US41']}),
+
+scene('farm_auction',2,1931,'The Auction Notice',
+ s=>`Your mortgage is behind. The bank warns that livestock, equipment, or land may be sold if you cannot bring the account current.`,[
+  choice('Sell livestock voluntarily before the bank auction.',[
+    outcome(100,'You raise cash and protect the farm for now, but productive capacity and food supply both shrink.',{cash:270,assets:-450,debt:-250,food:-5,specialty:-6,morale:-7})
+  ]),
+  choice('Borrow from relatives to make the payment.',[
+    outcome(60,'Relatives scrape together enough to buy time. The farm survives another season.',{cash:160,debt:120,morale:-2,luck:1}),
+    outcome(40,'Your relatives are struggling too. There is little money to lend.',{cash:-30,housing:-6,morale:-7,luck:-1})
+  ]),
+  choice('Risk another harvest and delay payment.',[
+    outcome(35,'The harvest and local price are just good enough to catch up.',{cash:220,debt:-140,morale:5,luck:3},{luckNote:'You got lucky. One favorable season buys time.'}),
+    outcome(65,'Prices remain too low. The foreclosure threat grows more serious.',{debt:150,housing:-9,morale:-8,luck:-2})
+  ])
+ ],{roles:['farmer'],behind:'Collapsing farm prices made fixed mortgage debts harder to pay. Foreclosure was often the interaction of debt and structural agricultural weakness.',source:SOURCES.terkelFarm,standards:['US39','US41']}),
+
+scene('supplier_freeze',2,1931,'Cash on Delivery',
+ s=>`Your wholesaler will no longer extend the easy credit you relied on during the boom. At the same time, many customers ask you for more time to pay their own bills.`,[
+  choice('Cut inventory sharply and sell only fast-moving basics.',[
+    outcome(100,'The store looks emptier, but cash stops disappearing quite so quickly.',{assets:-220,cash:140,income:-100,specialty:-4})
+  ]),
+  choice('Borrow at a higher rate to keep shelves full.',[
+    outcome(70,'Customers still lack purchasing power. You now have full shelves and a larger debt payment.',{debt:350,assets:220,income:-110,cash:-80,morale:-4}),
+    outcome(30,'A nearby competitor closes and your sales rise enough to justify the loan.',{debt:290,assets:260,income:160,cash:100,luck:2},{luckNote:'You got lucky. A competitor’s failure sends customers your way.'})
+  ]),
+  choice('Demand cash from customers who owe you money.',[
+    outcome(100,'You collect some money, but several longtime customers cannot pay and stop shopping with you.',{cash:180,income:-140,morale:-3,specialty:-5})
+  ])
+ ],{roles:['business'],behind:'Credit contraction affected businesses even when their own stores remained open. Suppliers wanted cash precisely when customers had less of it.',standards:['US39','US41']}),
+
 scene('relief_1932',3,1932,'Do You Ask for Relief?',
  s=>`Your household budget is strained. Local relief exists, but funds are limited and applying can feel humiliating in a culture that prized self-reliance.`,[
   choice('Apply for local relief.',[
@@ -677,6 +890,62 @@ scene('business_survival',3,1932,'Keep the Doors Open?',
  ],{roles:['business'],condition:s=>s.income<1600||s.creditRisk>20,behind:'Small businesses faced a double squeeze: customers had less money, while credit became harder to obtain.'}),
 
 // CHAPTER 4
+
+scene('doctor_bill',3,1932,'The Fever',
+ s=>`${game.family.younger} has been sick for several days. The doctor costs money, and medicine costs more. Your family has already been cutting food and delaying bills.`,[
+  choice('Call the doctor and pay what it costs.',[
+    outcome(100,'The illness is treated early. The bill hurts badly, but health improves.',{cash:-130,debt:60,health:7,morale:4})
+  ]),
+  choice('Ask a charity clinic or relief office for medical help.',[
+    outcome(58,'You secure treatment after a long wait and uncomfortable questions about your finances.',{cash:-20,health:6,morale:-2,set:{reliefReceived:true}}),
+    outcome(42,'The clinic is overwhelmed. You are told to return later.',{health:-6,morale:-6,luck:-1})
+  ]),
+  choice('Wait and hope the fever breaks on its own.',[
+    outcome(58,'The illness lingers and weakens the child. Saving money comes at a health cost.',{health:-8,morale:-7}),
+    outcome(42,'The fever breaks without paid treatment.',{health:-2,morale:2,luck:2},{luckNote:'You got lucky. Delaying medical care could easily have gone worse.'})
+  ])
+ ],{behind:'McElvaine reports substantially higher illness among unemployed families, where malnutrition and inability to pay for care could reinforce each other.',standards:['US41']}),
+
+scene('pawn_goods',3,1932,'What Is a Radio Worth When You Are Hungry?',
+ s=>`The radio, furniture, tools, or jewelry can be turned into cash. These things are more than objects: they are pieces of the life your family thought it had built.`,[
+  choice('Pawn or sell the radio and other nonessentials.',[
+    outcome(100,'You buy groceries and catch up on a bill. The living room feels noticeably emptier.',{cash:135,assets:-200,food:7,morale:-5})
+  ]),
+  choice('Keep the household possessions and cut food further.',[
+    outcome(100,'The family keeps familiar things, but the pantry becomes the sacrifice.',{food:-6,health:-2,morale:-3})
+  ]),
+  choice('Sell tools or equipment that could produce income.',[
+    outcome(100,'You raise more cash, but make future work or production harder.',{cash:220,assets:-350,specialty:-8,food:4,morale:-6})
+  ])
+ ],{behind:'Families could convert household property into immediate survival resources. Financial collapse often became visible inside the home one object at a time.',standards:['US41']}),
+
+scene('school_or_work',3,1932,'School or a Pay Envelope?',
+ s=>`${game.family.older} offers to leave school and search for work. The family could use any income, but jobs are scarce and education may be difficult to resume later.`,[
+  choice('Keep your child in school.',[
+    outcome(100,'The family remains financially strained, but education continues and morale improves slightly.',{cash:-35,morale:5})
+  ]),
+  choice('Let your child leave school and search for work.',[
+    outcome(35,'Your child finds irregular work and brings home a little money.',{cash:95,income:75,morale:-2,set:{olderChildWorking:true},luck:1}),
+    outcome(65,'There are few jobs even for adults. School is interrupted without much income to show for it.',{cash:10,morale:-7,set:{olderChildWorking:true},luck:-1})
+  ]),
+  choice('Stay enrolled but take small jobs when available.',[
+    outcome(100,'The income is tiny, but school continues and the household gains a little flexibility.',{cash:40,income:20,health:-2,morale:1})
+  ])
+ ],{behind:'The Depression altered education and family roles. Children and teenagers often understood hardship through what they had to give up and the responsibilities they assumed.',standards:['US41']}),
+
+scene('neighbor_help',3,1932,'The Economy of Favors',
+ s=>`Cash is scarce throughout the neighborhood. People barter labor, food, repairs, rides, and childcare. A neighbor who helped you now needs help in return.`,[
+  choice('Share food even though your own pantry is thin.',[
+    outcome(100,'Your food supply shrinks, but the relationship strengthens. Later, the neighbor helps repair something you could not afford to replace.',{food:-4,morale:7,housing:3})
+  ]),
+  choice('Offer labor instead of food.',[
+    outcome(100,'You spend time and energy helping, preserving the pantry while building mutual support.',{health:-2,morale:6,housing:2})
+  ]),
+  choice('Refuse; your family cannot spare anything.',[
+    outcome(100,'You protect immediate resources but lose part of the informal safety net around you.',{food:2,morale:-4})
+  ])
+ ],{behind:'Formal relief was often inadequate, so families also relied on relatives, neighbors, barter, and informal mutual aid.',standards:['US41']}),
+
 scene('dust_plains',4,1934,'The Sky Turns Brown',
  s=>`Years of drought meet exposed, heavily plowed soil. Wind lifts topsoil into the air. Dust works through window cracks and settles on food. Your crop prospects collapse.`,[
   choice('Adopt soil-conservation methods and reduce exposed acreage.',[
@@ -728,6 +997,61 @@ scene('election_change',4,1933,'A New Administration',
  ],{behind:'Roosevelt’s first months brought emergency banking measures and a much larger federal role. Relief and reform did not instantly end unemployment, but the policy environment changed.',standards:['US41'],learn:'bankrun'}),
 
 // CHAPTER 5
+
+scene('bank_holiday',4,1933,'The Banks Close—On Purpose',
+ s=>`Soon after Franklin Roosevelt takes office, the federal government temporarily closes banks while officials examine which institutions can safely reopen.`,[
+  choice('Keep emergency cash at home until the situation is clearer.',[
+    outcome(100,'You remain cautious. When sound banks reopen, confidence begins to return, but the memory of panic remains.',{cash:15,morale:3})
+  ]),
+  choice('Return some cash to a reopened bank.',[
+    outcome(100,'The deposit feels different now that federal policy is trying to stabilize the system.',{morale:5,bankReserve:6})
+  ]),
+  choice('Keep everything outside banks for now.',[
+    outcome(100,'You avoid bank exposure but keep living as though the next panic may arrive tomorrow.',{morale:1})
+  ])
+ ],{behind:'The 1933 bank holiday and banking reforms were attempts to stop panic and restore confidence after waves of bank failures.',standards:['US39']}),
+
+scene('migration_choice',4,1934,'The Road Out',
+ s=>`A relative writes about possible work elsewhere. The letter also warns that jobs are scarce and newcomers are not always welcome.`,[
+  choice('Move the entire family in search of work.',[
+    outcome(38,'You find seasonal or low-wage work. The move is exhausting, but the household gains a new income stream.',{cash:-120,income:160,housing:-5,morale:-4,health:-2,luck:2},{luckNote:'You got lucky enough to find work. Many migrants arrived where labor markets were already overcrowded.'}),
+    outcome(62,'The jobs are fewer than promised. Travel consumes savings and housing becomes less secure.',{cash:-190,income:-60,housing:-10,food:-4,morale:-8,luck:-2})
+  ]),
+  choice('Send one adult family member ahead first.',[
+    outcome(50,'The person finds work and sends a little money home.',{cash:90,income:70,morale:-4,set:{familySeparated:true},luck:1}),
+    outcome(50,'Work is scarce. The family is separated without meaningful financial improvement.',{cash:-55,morale:-8,set:{familySeparated:true},luck:-1})
+  ]),
+  choice('Stay and use remaining local connections.',[
+    outcome(100,'You avoid the cost and uncertainty of migration, but remain tied to the weak local economy.',{cash:15,morale:2})
+  ])
+ ],{behind:'Migration was both an economic strategy and a family disruption. Moving did not guarantee work; migrants often entered already crowded labor markets.',standards:['US40','US41']}),
+
+scene('family_odd_job',4,1934,'Everybody Works Now',
+ s=>`${game.family.spouse} can take in laundry, sewing, boarders, domestic work, or another small job. The income would help, but the extra labor changes household roles and adds exhaustion.`,[
+  choice('Take every available household job.',[
+    outcome(100,'The family earns more, but exhaustion and strain grow.',{cash:105,income:80,health:-4,morale:-1,set:{spouseWorking:true}})
+  ]),
+  choice('Take only work that can be done from home.',[
+    outcome(100,'Income rises modestly without completely reorganizing the household.',{cash:55,income:40,health:-2,morale:1,set:{spouseWorking:true}})
+  ]),
+  choice('Protect health and childcare instead.',[
+    outcome(100,'The family loses possible income but avoids another source of exhaustion.',{cash:-30,health:3,morale:3})
+  ])
+ ],{behind:'The Depression changed household labor. Women and other family members often sought income even while cultural expectations about breadwinning remained strong.',standards:['US41']}),
+
+scene('relatives_arrive',4,1934,'Two More Plates at the Table',
+ s=>`Relatives have lost their housing and ask to stay with you. Taking them in will strain food and space, but refusing may leave them with nowhere safe to go.`,[
+  choice('Take them in for as long as necessary.',[
+    outcome(100,'The house becomes crowded and food disappears faster, but the extended family becomes its own safety net.',{food:-6,housing:-5,morale:5})
+  ]),
+  choice('Let them stay temporarily while everyone searches for work.',[
+    outcome(100,'The arrangement is tense but manageable for now.',{food:-4,housing:-3,morale:2})
+  ]),
+  choice('Help them find another arrangement but do not house them.',[
+    outcome(100,'You protect your household resources but carry the emotional weight of the decision.',{cash:-35,morale:-5})
+  ])
+ ],{behind:'Family networks were a major form of informal relief. Economic hardship frequently crowded households and redistributed responsibilities across relatives.',standards:['US41']}),
+
 scene('aaa_scene',5,1933,'The AAA Offer',
  s=>`The Agricultural Adjustment Administration offers payments to landowners who reduce production. The goal is to raise farm prices by reducing supply.`,[
   choice('Enroll and reduce acreage.',[
@@ -742,7 +1066,7 @@ scene('aaa_scene',5,1933,'The AAA Offer',
  ],{roles:['farmer'],behind:'The AAA used government-supported scarcity to raise farm prices. McElvaine emphasizes that its benefits were uneven, especially for tenants and sharecroppers.',standards:['US39','US41'],learn:'aaa'}),
 
 scene('ccc_family',5,1934,'A Place in the CCC?',
- s=>`Your 23-year-old son hears that the Civilian Conservation Corps is taking young men for conservation work. Camp life means leaving home, but part of the pay can be sent back to the family.`,[
+ s=>`Your 18-year-old son hears that the Civilian Conservation Corps is taking young men for conservation work. Camp life means leaving home, but part of the pay can be sent back to the family.`,[
   choice('Encourage him to apply.',[
    outcome(58,'He is accepted. The regular remittance helps with food, and his absence is both a relief and a sadness.',{cash:180,food:8,morale:-3,set:{olderChildWorking:true},luck:1},{luckNote:'A valuable opening: the CCC gives your son work when private jobs are scarce.'}),
    outcome(42,'The local quota is full. He remains home and keeps looking.',{morale:-4,luck:-1})
@@ -784,6 +1108,62 @@ scene('recovery_purchase',5,1935,'Distressed Assets',
  ],{condition:s=>s.cash>420,behind:'Depressions create distressed assets as well as hardship. A minority with cash, timing, and luck could prosper. Terkel’s oral histories include businessmen whose firms grew dramatically during the 1930s.',source:SOURCES.terkelSuccess}),
 
 // CHAPTER 6
+
+scene('bank_reform',5,1934,'Would You Trust a Bank Again?',
+ s=>`Federal deposit insurance and banking reforms begin changing how families think about savings. Your household still remembers the old bank lines.`,[
+  choice('Return most savings to an insured bank.',[
+    outcome(100,'Your money is easier to manage and the fear of total deposit loss is reduced.',{morale:5,savingsHabit:6,bankReserve:8})
+  ]),
+  choice('Keep a mix of deposits and cash at home.',[
+    outcome(100,'You balance convenience with lingering distrust.',{morale:3,savingsHabit:3})
+  ]),
+  choice('Keep nearly all cash outside banks.',[
+    outcome(100,'The memory of failure wins. You preserve control but do not fully share in restored banking confidence.',{morale:-1})
+  ])
+ ],{behind:'Federal deposit insurance, created in 1933, reduced the risk that ordinary depositors would lose insured savings when banks failed.',standards:['US39']}),
+
+scene('soil_conservation',5,1936,'Save the Soil',
+ s=>`A county agent recommends conservation practices that may reduce erosion and protect long-term productivity. They require labor now and may reduce short-term acreage.`,[
+  choice('Adopt the conservation practices.',[
+    outcome(100,'Short-term income is modest, but the land becomes more resilient.',{cash:-65,income:-20,specialty:11,housing:2,morale:3})
+  ]),
+  choice('Keep maximizing planted acreage.',[
+    outcome(60,'You earn a little more this season, but the soil remains vulnerable.',{income:75,specialty:-5}),
+    outcome(40,'Weather punishes exposed fields and the extra acreage produces little.',{income:-85,specialty:-8,luck:-1})
+  ]),
+  choice('Adopt only the cheapest measures.',[
+    outcome(100,'You gain some protection without sacrificing as much cash.',{cash:-30,specialty:6})
+  ])
+ ],{roles:['farmer'],behind:'New Deal-era conservation programs responded to the environmental lessons of the Dust Bowl by encouraging practices intended to protect soil.',standards:['US40']}),
+
+scene('business_recovery',5,1936,'Customers With Pay Envelopes Again',
+ s=>`More customers are carrying cash than a few years ago, though plenty still struggle. You must decide whether improvement is strong enough to justify expansion.`,[
+  choice('Restock cautiously and keep reserves.',[
+    outcome(100,'The store improves without recreating the debt structure that nearly destroyed it.',{cash:145,assets:100,income:150,specialty:7})
+  ]),
+  choice('Expand quickly to capture the recovery.',[
+    outcome(45,'Demand holds and profits rise.',{cash:200,assets:320,income:280,luck:2},{luckNote:'You got lucky. The local recovery is strong enough to support expansion.'}),
+    outcome(55,'The recovery is uneven. New inventory sits on the shelf.',{cash:-140,assets:150,debt:100,morale:-4,luck:-1})
+  ]),
+  choice('Use stronger sales to reduce debt.',[
+    outcome(100,'You sacrifice rapid growth in exchange for a sturdier balance sheet.',{cash:70,debt:-260,income:90,morale:3})
+  ])
+ ],{roles:['business'],behind:'Recovery was uneven. Some businesses improved as public and private paychecks returned, but renewed expansion still carried risk.',standards:['US41']}),
+
+scene('relief_cutback',5,1936,'Your Name Comes Off the Roll',
+ s=>`A public-work program begins reducing its rolls. If your household has depended on relief employment, the possibility of losing it feels much like a private layoff.`,[
+  choice('Search immediately for private work while still receiving pay.',[
+    outcome(42,'You find lower-paid private work before relief ends.',{income:90,cash:60,morale:4,luck:1}),
+    outcome(58,'Private employers are still hiring cautiously.',{cash:-20,morale:-5,luck:-1})
+  ]),
+  choice('Use remaining pay to rebuild a small emergency reserve.',[
+    outcome(100,'You cannot control the cutback, but a little cash softens what comes next.',{cash:100,morale:2,savingsHabit:5})
+  ]),
+  choice('Assume the program will continue and spend normally.',[
+    outcome(100,'The cutback catches the household with little cushion.',{cash:-80,morale:-5})
+  ])
+ ],{behind:'New Deal programs could be lifesaving without being permanent or universal. WPA rolls were cut even while significant unemployment remained.',standards:['US41']}),
+
 scene('wagner_worker',6,1935,'The Wagner Act and the Union Drive',
  s=>`${game.variant==='detroit'?'Organizers are active around the plant.':'Organizers are talking with miners and their families.'} The new Wagner Act strengthens federal protection for organizing and collective bargaining.`,[
   choice('Support the union drive openly.',[
@@ -793,6 +1173,50 @@ scene('wagner_worker',6,1935,'The Wagner Act and the Union Drive',
   choice('Stay out of the organizing fight.',[outcome(100,'You avoid immediate conflict. You may still benefit if coworkers win a contract.',{morale:1})],{learn:'wagner'}),
   choice('Wait to see whether a majority supports representation.',[outcome(100,'You keep a lower profile and participate once the representation question becomes clearer.',{morale:2,specialty:1})],{learn:'wagner'})
  ],{roles:['worker'],behind:'McElvaine describes the Wagner Act as a major shift: the federal government prohibited unfair anti-union practices and supervised representation elections.',standards:['US41'],learn:'wagner'}),
+
+
+scene('union_strike',6,1937,'The Picket Line',
+ s=>`Workers debate whether to strike for recognition, wages, or conditions. The Wagner Act has strengthened organizing rights, but striking still risks lost pay and conflict.`,[
+  choice('Join the strike.',[
+    outcome(48,'The strike wins concessions. Lost wages hurt, but bargaining power improves.',{cash:-80,income:100,morale:8,specialty:7,set:{union:true},luck:2},{luckNote:'The strike succeeded. Many labor battles were far less certain.'}),
+    outcome(52,'The dispute drags on. You lose wages and the result is limited.',{cash:-130,morale:-4,specialty:2,set:{union:true},luck:-1})
+  ]),
+  choice('Support the union but keep working if possible.',[
+    outcome(100,'You reduce immediate financial risk but strain relationships with some coworkers.',{cash:20,morale:-2,set:{union:true}})
+  ]),
+  choice('Stay out of the organizing effort.',[
+    outcome(100,'You avoid the immediate conflict, though you have less influence over collective bargaining.',{morale:1})
+  ])
+ ],{roles:['worker'],behind:'The Wagner Act strengthened legal protections for organizing, but it did not make strikes risk-free or guarantee union victories.',standards:['US41']}),
+
+scene('adult_child_future',6,1938,'Your Child Has a Chance to Leave',
+ s=>`${game.family.older}, now an adult, has an opportunity in another town. The pay may be better, but the family has already spent years being pulled apart by economics.`,[
+  choice('Encourage the move and accept the separation.',[
+    outcome(100,'The opportunity improves your child’s prospects, though the house feels quieter.',{cash:40,morale:-1,set:{olderChildWorking:true}})
+  ]),
+  choice('Ask your child to remain and help the household.',[
+    outcome(100,'Family labor and support stay close, but the outside opportunity disappears.',{cash:55,morale:3})
+  ]),
+  choice('Let your child decide without pressure.',[
+    outcome(50,'Your child stays for now and contributes locally.',{cash:45,morale:4,luck:1}),
+    outcome(50,'Your child leaves for the opportunity and later sends money home.',{cash:90,morale:1,set:{olderChildWorking:true},luck:1})
+  ])
+ ],{behind:'The Depression shaped migration, family formation, education, and work decisions long after the worst years of the crisis.',standards:['US41']}),
+
+scene('savings_rebuild',6,1938,'Would You Ever Take a Risk Again?',
+ s=>`Your household has finally rebuilt a small cushion. After everything that happened, even ordinary financial decisions feel different.`,[
+  choice('Keep a large emergency reserve.',[
+    outcome(100,'The household gains security, even if growth is slow.',{cash:120,morale:5,savingsHabit:8})
+  ]),
+  choice('Invest cautiously in productive assets.',[
+    outcome(72,'The investment produces a modest return as conditions improve.',{cash:-70,assets:150,income:50,morale:4}),
+    outcome(28,'The investment performs better than expected.',{cash:-70,assets:250,income:90,luck:2},{luckNote:'You got lucky. The improving economy rewards this particular investment.'})
+  ]),
+  choice('Take a large speculative risk to make back what was lost.',[
+    outcome(25,'The gamble pays off and your net worth jumps.',{cash:250,assets:350,morale:8,luck:4,set:{wealthBreak:true}},{luckNote:'You got extremely lucky. This is an exceptional outcome, not a typical recovery path.'}),
+    outcome(75,'The gamble reminds you that desperation does not make risk disappear.',{cash:-180,assets:-120,morale:-7,luck:-2})
+  ])
+ ],{behind:'Some Americans rebuilt wealth or even prospered during the Depression, but exceptional success depended on resources, timing, opportunity, and luck as well as decisions.',standards:['US41']}),
 
 scene('social_security',6,1935,'A New Kind of Promise',
  s=>`Congress passes the Social Security Act. It will not put an immediate pile of money on your kitchen table, but it changes expectations about old-age economic security and the federal government’s role.`,[
@@ -834,14 +1258,101 @@ scene('final_opportunity',6,1938,'One More Risk',
  ],{behind:'A “successful” Depression experience did not have to mean becoming rich. Keeping housing, health, family ties, and manageable debt could itself represent extraordinary resilience.'})
 ];
 
-const CHECKPOINTS = {
-  1:{standard:'US39',q:'Which combination best explains why apparently prosperous 1920s households and businesses could still be vulnerable?',answers:['Easy credit and debt could support spending while leaving families exposed if income fell.','Radios and automobiles directly caused bank failures.','Farmers were universally prosperous, so agriculture stabilized the economy.','The federal government guaranteed every bank deposit.'],correct:0,explain:'Credit could support consumption and investment, but fixed debts became dangerous when incomes and prices fell. Agriculture was already weak before 1929.'},
-  2:{standard:'US39',q:'Why could a bank failure make the broader Depression worse?',answers:['It could destroy savings and reduce credit, weakening spending and investment.','It automatically raised farm prices.','It forced the stock market to reopen at higher prices.','It guaranteed that factories would hire more workers.'],correct:0,explain:'Loss of savings and credit reduced purchasing power and made it harder for businesses and farms to finance activity.'},
-  3:{standard:'US41',q:'What does the unemployment spiral in the simulation show?',answers:['Unemployment could reduce demand, causing more business cutbacks and more unemployment.','Unemployed people could always find equivalent work by moving to another city.','Private charity had enough resources to support every jobless family.','Housing and health were mostly unaffected by lost wages.'],correct:0,explain:'Mass unemployment affected food, housing, health, family life, and demand throughout the economy.'},
-  4:{standard:'US40',q:'Which explanation best connects the Dust Bowl to the Great Depression?',answers:['Drought and exposed soil caused severe erosion, destroying farms and increasing migration during an economic crisis.','The stock-market crash directly created dust storms across every state.','The Dust Bowl was mainly an urban banking problem.','All American farmers experienced identical drought conditions.'],correct:0,explain:'The Dust Bowl was a regional environmental disaster caused by drought plus vulnerable land use; it intensified economic hardship and migration.'},
-  5:{standard:'US41',q:'What is the most accurate lesson from New Deal relief programs in the simulation?',answers:['They changed the federal role and helped millions, but access was uneven and they did not instantly eliminate unemployment.','Every unemployed American immediately received a permanent federal job.','New Deal programs only affected banks and had little effect on families.','Relief meant private employment had completely recovered by 1935.'],correct:0,explain:'Programs such as the WPA and CCC provided work and support, but need remained much greater than available positions.'},
-  6:{standard:'US41',q:'By 1939, which conclusion best fits the simulation?',answers:['The decade brought partial recovery and major reforms, but hardship and unemployment did not disappear evenly or all at once.','The Depression ended immediately after the 1929 stock market reopened.','Every family either became rich or starved; there were no outcomes in between.','Individual decisions completely determined whether a person suffered.'],correct:0,explain:'Outcomes reflected personal choices, local conditions, structural economic forces, policy changes, and luck.'}
+const QUESTION_BANK = {
+  farmer_weak_prices:{standard:'US39',q:'Your farm struggled even while newspapers celebrated 1920s prosperity. What does that show?',answers:['The 1920s boom was uneven, and agriculture was already weak before 1929.','Farm prices only fell after the stock market crash.','All farmers benefited equally from mass consumer spending.','Farm debt disappeared during the 1920s.'],correct:0,explain:'Agriculture suffered from weak prices and debt before the general economy collapsed.'},
+  worker_boom:{standard:'US39',q:'Your household could buy goods on installment during the boom. Why could that become dangerous later?',answers:['Fixed debt payments remained even if wages or hours fell.','Installment credit guaranteed higher wages.','Consumer debt protected households from unemployment.','Factories were legally required to forgive installment debt.'],correct:0,explain:'Credit expanded consumption but made families more vulnerable when income disappeared.'},
+  business_credit:{standard:'US39',q:'Your store let customers buy on credit. Why could falling wages hurt your business twice?',answers:['Customers bought less and some could not repay what they already owed.','Lower wages automatically lowered your rent and loan payments.','Banks replaced every unpaid customer account.','Credit sales became federal relief payments.'],correct:0,explain:'Falling purchasing power reduced new sales while also making old customer debts harder to collect.'},
+  stock_fever:{standard:'US39',q:'You encountered the stock boom and the possibility of buying on margin. Why did margin increase risk?',answers:['Borrowing magnified losses because the debt remained when stock prices fell.','Margin prevented stock prices from falling.','Borrowed money was forgiven after a market crash.','Margin meant investors could only lose their original cash.'],correct:0,explain:'Leverage magnified both gains and losses.'},
+  installment_plan:{standard:'US39',q:'The store advertised a small monthly payment instead of the full price. What larger 1920s trend did this represent?',answers:['Expansion of consumer credit and household debt.','The end of mass consumption.','Federal deposit insurance.','A collapse in industrial production.'],correct:0,explain:'Installment plans made goods easier to buy immediately while creating future obligations.'},
+  farm_more_acres:{standard:'US39',q:'When low crop prices encouraged farmers to plant more, why could the strategy backfire nationally?',answers:['More supply could keep prices low when purchasing demand was already weak.','More crops automatically increased consumers’ wages.','Banks paid farmers extra for producing surpluses.','Overproduction only affected city factories.'],correct:0,explain:'Producing more did not solve weak demand and could worsen excess supply.'},
+  worker_company_stock:{standard:'US39',q:'Why was tying both your job and savings to the same booming industry risky?',answers:['One downturn could threaten wages and investments at the same time.','Company stock guaranteed continued employment.','Workers were protected from market losses by the FDIC.','Industrial stocks could not fall before 1933.'],correct:0,explain:'Concentrating economic security in one industry increased exposure to a downturn.'},
+  business_expansion_loan:{standard:'US39',q:'Why did debt-financed expansion become dangerous when demand weakened?',answers:['Loan payments remained even when customer sales fell.','Banks reduced loan balances whenever sales declined.','Expansion eliminated fixed business costs.','Customers were required to keep buying at 1928 levels.'],correct:0,explain:'Fixed debt became harder to service as revenue contracted.'},
+
+  crash:{standard:'US39',q:'After experiencing the 1929 crash, which statement is most accurate?',answers:['The crash was a major shock, but banking crises, debt, falling demand, and unemployment deepened the Depression.','The crash alone explains every part of the Depression.','The economy fully recovered within weeks.','Only people who owned stock were affected afterward.'],correct:0,explain:'The crash was important, but the Depression became much broader than Wall Street.'},
+  margin_call:{standard:'US39',q:'Your broker demanded more money after stock prices fell. Why?',answers:['The borrowed portion of a margin purchase still had to be repaid.','The federal government taxed every losing investor immediately.','The FDIC required investors to replace stock losses.','Factories collected margin debt from workers.'],correct:0,explain:'A margin call exposed how leverage could turn falling prices into forced selling and debt.'},
+  bank_scare:{standard:'US39',q:'Why could a bank run become dangerous even before anyone knew whether a bank was insolvent?',answers:['If many depositors demanded cash at once, a bank could run short of ready cash.','Banks kept every depositor’s money physically separate in a vault.','Federal insurance already guaranteed deposits in 1931.','Bank runs increased consumer purchasing power.'],correct:0,explain:'Panic itself could create a liquidity crisis.'},
+  bank_result:{standard:'US39',q:'Whether your own bank survived or failed, why did widespread bank failures worsen the national Depression?',answers:['They destroyed savings and reduced credit, weakening spending and investment.','They automatically raised wages.','They increased the money available for business loans.','They only affected Wall Street brokers.'],correct:0,explain:'Bank failures damaged both household wealth and the flow of credit.'},
+  role_shock_farmer:{standard:'US39',q:'You could produce a crop and still struggle financially. What structural problem does that demonstrate?',answers:['Low farm prices and weak purchasing demand could make a successful harvest unprofitable.','Farm output had completely stopped nationwide.','The federal government fixed all farm prices at high levels.','Farm mortgages disappeared when crop prices fell.'],correct:0,explain:'Farmers could be productive and still be crushed by prices and debt.'},
+  role_shock_worker:{standard:'US39',q:'Why could factories lay off capable workers during the Depression?',answers:['Collapsing demand meant firms could not sell enough goods to justify the same payroll.','Workers suddenly forgot industrial skills.','The government prohibited mass production.','Factories were required to dismiss 90% of workers.'],correct:0,explain:'Layoffs could result from collapsing demand, not individual work quality.'},
+  role_shock_business:{standard:'US39',q:'Your customers began buying less and asking for more credit. What was happening?',answers:['Falling purchasing power was reducing demand throughout the local economy.','Consumer wages were rising too quickly.','Business failures increased household cash reserves.','The stock market forced customers to buy fewer groceries by law.'],correct:0,explain:'When households lost income, their reduced spending affected businesses.'},
+  worker_hours_cut:{standard:'US41',q:'Your employer cut hours instead of completely laying you off. Why does this still matter historically?',answers:['Underemployment also reduced family income and purchasing power.','Anyone with one hour of work was economically secure.','Short hours automatically qualified families for full wages.','Reduced hours increased national demand.'],correct:0,explain:'The Depression affected wages and hours as well as the unemployment rate.'},
+  farm_auction:{standard:'US41',q:'Your farm faced foreclosure even though you continued working it. What best explains the danger?',answers:['Fixed mortgage debt became harder to pay as farm prices and income collapsed.','Farmers were legally required to surrender land after 1929.','A good harvest always caused foreclosure.','The Dust Bowl struck every farm in the United States.'],correct:0,explain:'Debt and collapsing prices could threaten even hardworking farm families.'},
+  supplier_freeze:{standard:'US39',q:'Why did your store struggle when suppliers demanded cash while customers requested more credit?',answers:['Credit contraction squeezed the business from both directions.','The store had too much federal relief money.','Customers’ purchasing power was increasing rapidly.','Bank failures guaranteed supplier loans.'],correct:0,explain:'A credit crunch could damage otherwise viable small businesses.'},
+
+  relief_1932:{standard:'US41',q:'What did your relief-office experience show about early Depression relief?',answers:['Need was widespread and available relief was often limited or difficult to obtain.','Every unemployed family received enough federal support by 1932.','Relief was only available to wealthy investors.','Private charity eliminated hunger nationwide.'],correct:0,explain:'Relief systems were overwhelmed by the scale of unemployment.'},
+  work_search:{standard:'US41',q:'You searched repeatedly for work. Why was individual persistence often not enough?',answers:['There were far fewer jobs than people seeking them.','Employers were legally forbidden to hire experienced workers.','Every unemployed worker refused available jobs.','Moving to any other city guaranteed employment.'],correct:0,explain:'Mass unemployment was a structural shortage of jobs, not simply a shortage of effort.'},
+  family_food:{standard:'US41',q:'When your family began cutting portions, what broader effect of unemployment were you experiencing?',answers:['Lost income could produce malnutrition and worsening health.','Food shortages occurred because the United States stopped producing food.','Only farm families experienced hunger.','Relief programs had already eliminated food insecurity.'],correct:0,explain:'The Depression affected nutrition and health as household income collapsed.'},
+  housing_pressure:{standard:'US41',q:'Why did housing become insecure after income fell?',answers:['Rent and mortgage obligations continued even when wages disappeared.','Housing payments were automatically canceled during recessions.','Only stock investors could be evicted.','Banks were prohibited from foreclosing before 1940.'],correct:0,explain:'Fixed housing costs turned unemployment into eviction and foreclosure risk.'},
+  business_survival:{standard:'US41',q:'Your store had to decide whether it could keep operating. Why were small businesses vulnerable?',answers:['Falling customer demand, bad debts, and tight credit could combine at once.','Small businesses received guaranteed profits from the government.','Customers were buying more because unemployment rose.','Business debt fell automatically with sales.'],correct:0,explain:'Small businesses sat directly in the chain between household purchasing power and credit.'},
+  doctor_bill:{standard:'US41',q:'Your family had to weigh a medical bill against other necessities. What does this illustrate?',answers:['Economic hardship could worsen health because families delayed food or medical care.','Medical care became free nationwide in 1932.','Unemployment had little connection to health.','Only elderly Americans experienced medical hardship.'],correct:0,explain:'Loss of income could create a reinforcing cycle of poor nutrition, delayed care, and illness.'},
+  pawn_goods:{standard:'US41',q:'Selling household possessions for food shows which effect of prolonged unemployment?',answers:['Families consumed savings and assets to meet immediate needs.','Household wealth increased as unemployment continued.','Creditors replaced sold possessions for free.','Consumer goods became more valuable than food.'],correct:0,explain:'Survival often meant converting accumulated household property into cash.'},
+  school_or_work:{standard:'US41',q:'Why did the Depression affect education as well as employment?',answers:['Family financial pressure could push young people toward work or other responsibilities.','Schools closed permanently nationwide in 1929.','Teenagers were guaranteed high-paying jobs.','Education became federally prohibited for relief families.'],correct:0,explain:'Household economic pressure reshaped children’s and teenagers’ lives.'},
+  neighbor_help:{standard:'US41',q:'Your household relied on favors or barter. Why were informal networks important?',answers:['Formal relief was often inadequate, so families also depended on relatives and neighbors.','Barter replaced the dollar as official U.S. currency.','The federal government prohibited cash purchases.','Only wealthy families used community support.'],correct:0,explain:'Mutual aid was an important supplement to limited formal relief.'},
+
+  dust_plains:{standard:'US40',q:'Your farm experienced blowing topsoil. Which combination best explains the Dust Bowl?',answers:['Severe drought plus exposed, heavily cultivated soil created extreme wind erosion.','The stock market crash physically caused dust storms.','Bank failures removed rainfall from the Plains.','The Dust Bowl affected every U.S. region equally.'],correct:0,explain:'Drought interacted with land-use practices and vulnerable soil.'},
+  dust_letter:{standard:'US40',q:'You learned about relatives fleeing the Great Plains. Why were so many families migrating?',answers:['Drought, soil erosion, farm failure, and the wider Depression combined to push families out.','The federal government ordered every Plains family to move.','California guaranteed high wages to every migrant.','Dust storms were an urban East Coast problem.'],correct:0,explain:'Environmental disaster intensified existing economic distress.'},
+  family_separation:{standard:'US41',q:'Your family considered separation so that a child or adult could be supported elsewhere. What does this demonstrate?',answers:['Economic hardship could reshape family structure and living arrangements.','Family separation happened only because people disliked one another.','Relief guaranteed families never had to rely on relatives.','Migration had no effect on family life.'],correct:0,explain:'Depression hardship frequently changed where and with whom people lived.'},
+  homelessness:{standard:'US41',q:'What did the growth of makeshift settlements such as Hoovervilles reflect?',answers:['Mass unemployment and housing loss left many people without conventional homes.','A nationwide preference for outdoor living.','A federal program that built vacation cabins.','A boom in household purchasing power.'],correct:0,explain:'Hoovervilles became visible symbols of unemployment, eviction, and inadequate relief.'},
+  election_change:{standard:'US41',q:'Why did national politics begin to feel unusually personal to Depression-era families?',answers:['Federal policies increasingly affected banks, relief, jobs, farms, and economic security.','Presidents personally employed every unemployed worker.','State and local governments disappeared.','Economic policy stopped affecting ordinary households.'],correct:0,explain:'The crisis expanded expectations for federal action.'},
+  bank_holiday:{standard:'US39',q:'What was the purpose of the 1933 bank holiday you experienced?',answers:['Temporarily close banks, evaluate them, and restore confidence before sound banks reopened.','Permanently abolish private banks.','Stop all Americans from saving money.','Increase stock speculation.'],correct:0,explain:'The bank holiday was part of an emergency effort to stabilize banking.'},
+  migration_choice:{standard:'US41',q:'Your family considered moving for work. Why was migration not an automatic solution?',answers:['Migrants often arrived in places where jobs were already scarce and competition was intense.','Every migrant was guaranteed a federal job.','Travel was free for unemployed families.','Migration restored lost farms automatically.'],correct:0,explain:'Migration could create opportunity, but also cost money and expose families to new insecurity.'},
+  family_odd_job:{standard:'US41',q:'What does your spouse taking extra work reveal about family life during the Depression?',answers:['Households adapted by changing labor roles and drawing income from more family members.','Only one family member was legally permitted to work.','Women were universally excluded from paid work.','Extra household labor had no effect on family survival.'],correct:0,explain:'The crisis often forced households to reconsider traditional labor roles.'},
+  relatives_arrive:{standard:'US41',q:'Why did extended families often crowd together during the Depression?',answers:['Relatives acted as an informal safety net when income and housing were lost.','Federal law required all relatives to share one home.','Housing became cheaper because unemployment rose.','Only rural families shared housing.'],correct:0,explain:'Kinship networks absorbed some of the pressure that formal relief could not.'},
+
+  aaa_scene:{standard:'US40',q:'Why did the AAA pay some farmers to reduce production?',answers:['Officials hoped lower supply would raise agricultural prices and farm income.','The government wanted to eliminate farming.','The AAA was designed primarily to create industrial unions.','It guaranteed equal benefits to every tenant and sharecropper.'],correct:0,explain:'The AAA tried to address agricultural overproduction and low prices, though its benefits were uneven.'},
+  ccc_family:{standard:'US41',q:'Why could the CCC help an entire family even though it employed young men?',answers:['Camp wages and support could send money home while providing food and lodging to the worker.','CCC workers were given ownership of banks.','The CCC guaranteed permanent private employment.','It eliminated all unemployment by 1934.'],correct:0,explain:'CCC employment could reduce the number of mouths at home while adding income.'},
+  wpa_scene:{standard:'US41',q:'What is the most accurate lesson from your WPA experience?',answers:['Federal work relief helped millions but did not provide a job to every unemployed person.','The WPA immediately ended unemployment.','WPA workers received no wages.','The WPA only helped farmers reduce crops.'],correct:0,explain:'The WPA was important but never large enough to employ everyone who needed work.'},
+  business_newdeal_demand:{standard:'US41',q:'Your store saw customers spend federal work-relief wages. What economic idea does this illustrate?',answers:['One person’s paycheck can become another business’s sales, circulating demand through the economy.','Government wages could only be spent at federal stores.','Relief work reduced all private sales.','Consumer demand had no relationship to employment.'],correct:0,explain:'Work-relief wages could support broader local purchasing power.'},
+  recovery_purchase:{standard:'US41',q:'You had a chance to buy assets cheaply from someone in distress. What does this reveal about Depression outcomes?',answers:['The crisis created losses for many but opportunities for some people who still had cash and resources.','Nobody could prosper under any circumstance.','Every cheap asset was guaranteed to rise in value.','Distressed sales eliminated economic inequality.'],correct:0,explain:'Some people benefited from unusual opportunities, but access to those opportunities was highly unequal.'},
+  bank_reform:{standard:'US39',q:'How did federal deposit insurance change the risk faced by ordinary bank customers?',answers:['It reduced the danger that insured depositors would lose savings if a bank failed.','It guaranteed stock-market profits.','It ended all bank regulation.','It insured farm crops against drought.'],correct:0,explain:'Deposit insurance was intended to protect savings and reduce panic.'},
+  soil_conservation:{standard:'US40',q:'Why did soil-conservation practices matter after the Dust Bowl?',answers:['They aimed to reduce erosion and protect topsoil from wind and water.','They increased stock-market prices.','They replaced all rainfall on the Plains.','They guaranteed higher crop prices.'],correct:0,explain:'The Dust Bowl demonstrated how land use and drought could combine into environmental disaster.'},
+  business_recovery:{standard:'US41',q:'Why did your store’s recovery remain uncertain even when customers began returning?',answers:['Recovery was uneven and another downturn could still reduce purchasing power.','The Depression had legally ended in 1935.','Every customer now had a guaranteed job.','Business debt no longer existed after the New Deal.'],correct:0,explain:'Improvement was real but incomplete and unstable.'},
+  relief_cutback:{standard:'US41',q:'What did a cut in relief work demonstrate about New Deal programs?',answers:['They could be essential without being permanent or sufficient for everyone who needed work.','Federal relief guaranteed lifetime employment.','Cutbacks proved unemployment had vanished.','Only wealthy families depended on relief work.'],correct:0,explain:'Relief programs changed lives while remaining limited and politically vulnerable.'},
+
+  wagner_worker:{standard:'US41',q:'What did the Wagner Act change for workers like your character?',answers:['It strengthened protections for organizing and collective bargaining.','It required every worker to join a union.','It abolished private employers.','It created old-age pensions.'],correct:0,explain:'The Wagner Act protected organizing rights but did not force workers to unionize.'},
+  union_strike:{standard:'US41',q:'Why could a strike still be risky even after the Wagner Act?',answers:['Legal organizing protections did not eliminate lost wages, conflict, or the possibility of an unsuccessful strike.','The Wagner Act guaranteed every strike would win.','Strikers automatically received full private wages.','Union activity had no connection to employment conditions.'],correct:0,explain:'Law changed the bargaining environment without removing the economic risks of labor conflict.'},
+  social_security:{standard:'US41',q:'What long-term change did the Social Security Act represent?',answers:['A larger federal role in providing economic security, especially in old age.','An immediate job for every unemployed American.','The end of private banking.','A program to reduce farm acreage.'],correct:0,explain:'Social Security permanently expanded federal responsibility for economic security.'},
+  recession_1937:{standard:'US41',q:'Why is the 1937–38 downturn important to understanding the Depression?',answers:['Recovery was uneven and could reverse before full employment returned.','The Depression had fully ended by 1936.','Unemployment could only move downward after the New Deal.','The stock market crash happened for the first time in 1937.'],correct:0,explain:'The renewed recession showed how incomplete the recovery still was.'},
+  family_reunion:{standard:'US41',q:'Your children remembered sacrifices made years earlier. What larger point does that show?',answers:['The Depression left long-lasting effects on family expectations, memories, and life choices.','Economic crises affect only bank accounts.','Children were generally unaware of family hardship.','All family effects ended as soon as wages improved.'],correct:0,explain:'The social effects of the Depression continued beyond a single year or policy.'},
+  adult_child_future:{standard:'US41',q:'Your adult child considered leaving for opportunity elsewhere. Which Depression-era pattern does this echo?',answers:['Economic conditions influenced migration and family separation.','Federal law required adult children to leave home.','Migration guaranteed prosperity.','Family decisions were unrelated to employment.'],correct:0,explain:'Economic opportunity and insecurity reshaped where families lived.'},
+  savings_rebuild:{standard:'US41',q:'Why might a Depression survivor remain cautious even as conditions improved?',answers:['Years of bank failures, unemployment, and lost assets could permanently change attitudes toward risk and saving.','The government prohibited investment after 1935.','Recovery eliminated the need for savings.','Every survivor became wealthy by 1938.'],correct:0,explain:'Economic trauma can alter behavior long after immediate conditions improve.'},
+  final_opportunity:{standard:'US41',q:'What is the best overall lesson from your final opportunity?',answers:['Choices mattered, but outcomes also depended on structural conditions and luck.','Anyone who suffered simply made bad choices.','Every cautious person became wealthy.','Public policy had no effect on individual outcomes.'],correct:0,explain:'The simulation is designed to show agency without turning poverty into a morality test.'}
 };
+
+const FALLBACK_QUESTIONS = {
+  1:{standard:'US39',q:'Which weakness made the prosperity of the 1920s less secure than it looked?',answers:['Debt, uneven purchasing power, agricultural weakness, and speculation created vulnerabilities.','Every household had identical income and savings.','Bank deposits were already federally insured.','Farm prices were at record highs throughout the decade.'],correct:0,explain:'The 1920s economy contained important structural weaknesses before the crash.'},
+  2:{standard:'US39',q:'Why did the downturn spread beyond Wall Street?',answers:['Bank failures, falling demand, debt, layoffs, and credit contraction reinforced one another.','Only stock investors lost income.','Factories were unaffected by consumer spending.','The federal government immediately restored all lost wealth.'],correct:0,explain:'The Depression became an economy-wide contraction.'},
+  3:{standard:'US41',q:'Which statement best describes the effects of mass unemployment?',answers:['It affected food, housing, health, family life, and consumer demand.','It only changed the unemployment statistic.','It made housing more secure.','It guaranteed relief to every family.'],correct:0,explain:'Unemployment had social and economic effects throughout household life.'},
+  4:{standard:'US40',q:'What caused the Dust Bowl?',answers:['Severe drought interacting with exposed and heavily cultivated Great Plains soil.','The 1929 stock crash physically created dust storms.','Federal relief programs removed topsoil.','Urban bank failures caused drought.'],correct:0,explain:'The Dust Bowl was an environmental disaster layered on top of the economic crisis.'},
+  5:{standard:'US41',q:'What is the most accurate statement about New Deal relief?',answers:['It expanded the federal role and helped millions, but it did not instantly end unemployment.','It provided permanent employment to every adult.','It only helped stock investors.','It ended all family hardship by 1934.'],correct:0,explain:'New Deal relief was significant but incomplete.'},
+  6:{standard:'US41',q:'What best explains different outcomes by the end of the 1930s?',answers:['Choices, local conditions, structural economic forces, policy, and luck all mattered.','Individual virtue alone determined outcomes.','Everyone experienced the same path.','The Depression affected only people who owned stock.'],correct:0,explain:'Historical outcomes varied because people faced different resources, locations, policies, and shocks.'}
+};
+
+function prepareQuestion(q, experience){
+  const questionText=typeof q.q==='function'?q.q(game,experience):q.q;
+  const options=shuffle(q.answers.map((text,i)=>({text,correct:i===q.correct})));
+  return {...q,q:questionText,options,correct:options.findIndex(x=>x.correct),experience};
+}
+
+function makeCheckpoint(chapter){
+  const exps=game.experiences.filter(e=>e.chapter===chapter && QUESTION_BANK[e.sceneId]);
+  let chosen=[];
+  // Chapter 4 always checks Dust Bowl understanding if the student experienced it.
+  if(chapter===4){
+    const dust=exps.find(e=>e.sceneId==='dust_plains'||e.sceneId==='dust_letter');
+    if(dust) chosen.push(dust);
+  }
+  for(const e of shuffle(exps)){
+    if(chosen.length>=2) break;
+    if(!chosen.some(x=>x.sceneId===e.sceneId)) chosen.push(e);
+  }
+  let questions=chosen.map(e=>prepareQuestion(QUESTION_BANK[e.sceneId],e));
+  while(questions.length<2) questions.push(prepareQuestion(FALLBACK_QUESTIONS[chapter],null));
+  return {chapter,questions:questions.slice(0,2),index:0,selected:null,answered:false};
+}
+
+function currentCheckpointQuestion(){return ui.checkpoint.questions[ui.checkpoint.index];}
+
 
 function eligible(sc){
   if(sc.roles && !sc.roles.includes(game.role)) return false;
@@ -851,27 +1362,67 @@ function eligible(sc){
 }
 function buildRun(){
   const run=[];
+  const addUnique=(arr,id)=>{if(id && !arr.includes(id)){const s=SCENES.find(x=>x.id===id);if(s&&eligibleForProfile(s))arr.push(id);}};
   for(const c of CHAPTERS){
     const pool=SCENES.filter(s=>s.chapter===c.n && eligibleForProfile(s));
-    let fixed=[];
-    if(c.n===1){fixed.push(firstIdFor(['farmer_weak_prices','worker_boom','business_credit'])); fixed.push('stock_fever'); fixed.push('family_1928');}
-    if(c.n===2){fixed.push('crash','margin_call','bank_scare','bank_result',firstIdFor(['role_shock_farmer','role_shock_worker','role_shock_business']));}
-    if(c.n===3){fixed.push('relief_1932','family_food','housing_pressure'); if(game.role==='business') fixed.push('business_survival'); else fixed.push('work_search');}
-    if(c.n===4){fixed.push(game.role==='farmer'&&game.variant==='plains'?'dust_plains':'dust_letter','family_separation','homelessness','election_change');}
-    if(c.n===5){if(game.role==='farmer') fixed.push('aaa_scene'); if(game.role==='business') fixed.push('business_newdeal_demand'); fixed.push('ccc_family','wpa_scene','recovery_purchase');}
-    if(c.n===6){if(game.role==='worker')fixed.push('wagner_worker'); fixed.push('social_security','recession_1937','family_reunion','final_opportunity');}
-    const unique=[...new Set(fixed)].filter(id=>SCENES.find(s=>s.id===id));
-    // Keep play length manageable while preserving core content: 3 scenes in Ch1/4, 4 in Ch2/3/5/6.
-    const target=(c.n===2?5:(c.n===1?3:4));
     let chosen=[];
-    for(const id of unique){
-      const sc=SCENES.find(s=>s.id===id);
-      if(sc && eligibleForProfile(sc) && chosen.length<target) chosen.push(id);
+
+    if(c.n===1){
+      addUnique(chosen,firstIdFor(['farmer_weak_prices','worker_boom','business_credit']));
+      // One economy-wide 1920s vulnerability, chosen differently each run.
+      addUnique(chosen,choose(shuffle(['stock_fever','installment_plan']).filter(id=>SCENES.find(s=>s.id===id))));
+      // One occupation-specific extra experience when possible.
+      const roleExtra=game.role==='farmer'?'farm_more_acres':game.role==='worker'?'worker_company_stock':'business_expansion_loan';
+      if(Math.random()<.72) addUnique(chosen,roleExtra);
     }
+
+    if(c.n===2){
+      addUnique(chosen,'crash');
+      // Bank panic remains a core cause, but the rest of the chapter varies.
+      addUnique(chosen,'bank_scare');
+      addUnique(chosen,'bank_result');
+      const roleShock=firstIdFor(['role_shock_farmer','role_shock_worker','role_shock_business']);
+      if(Math.random()<.75) addUnique(chosen,roleShock);
+      const roleAlt=game.role==='farmer'?'farm_auction':game.role==='worker'?'worker_hours_cut':'supplier_freeze';
+      if(Math.random()<.70) addUnique(chosen,roleAlt);
+      if(game.marginExposure>8 && Math.random()<.70) addUnique(chosen,'margin_call');
+    }
+
+    if(c.n===3){
+      const hardshipCore=game.role==='business'?'business_survival':'work_search';
+      addUnique(chosen,hardshipCore);
+      const common=shuffle(['relief_1932','family_food','housing_pressure','doctor_bill','pawn_goods','school_or_work','neighbor_help']);
+      for(const id of common){if(chosen.length<4)addUnique(chosen,id);}
+    }
+
+    if(c.n===4){
+      addUnique(chosen,game.role==='farmer'&&game.variant==='plains'?'dust_plains':'dust_letter');
+      const common=shuffle(['family_separation','homelessness','election_change','bank_holiday','migration_choice','family_odd_job','relatives_arrive']);
+      for(const id of common){if(chosen.length<4)addUnique(chosen,id);}
+    }
+
+    if(c.n===5){
+      // Everyone experiences at least one New Deal work/reform scene.
+      addUnique(chosen,choose(shuffle(['ccc_family','wpa_scene','bank_reform'])));
+      if(game.role==='farmer') addUnique(chosen,choose(['aaa_scene','soil_conservation']));
+      if(game.role==='business') addUnique(chosen,choose(['business_newdeal_demand','business_recovery']));
+      const common=shuffle(['ccc_family','wpa_scene','bank_reform','recovery_purchase','relief_cutback','aaa_scene','soil_conservation','business_newdeal_demand','business_recovery']);
+      for(const id of common){if(chosen.length<4)addUnique(chosen,id);}
+    }
+
+    if(c.n===6){
+      if(game.role==='worker' && Math.random()<.75) addUnique(chosen,choose(['wagner_worker','union_strike']));
+      const common=shuffle(['social_security','recession_1937','family_reunion','final_opportunity','adult_child_future','savings_rebuild']);
+      for(const id of common){if(chosen.length<4)addUnique(chosen,id);}
+    }
+
+    const target=c.n===2?5:4;
     if(chosen.length<target){
-      for(const sc of shuffle(pool)){if(!chosen.includes(sc.id)&&chosen.length<target)chosen.push(sc.id);}
+      for(const sc of shuffle(pool)){if(chosen.length<target)addUnique(chosen,sc.id);}
     }
-    run.push(...chosen.map(id=>({type:'scene',id,chapter:c.n})),{type:'checkpoint',chapter:c.n});
+    // Randomize the non-essential order while keeping certain chronology pairs logical.
+    if(c.n!==2) chosen=chosen.slice(0,1).concat(shuffle(chosen.slice(1)));
+    run.push(...chosen.slice(0,target).map(id=>({type:'scene',id,chapter:c.n})),{type:'checkpoint',chapter:c.n});
   }
   return run;
 }
@@ -893,7 +1444,7 @@ function advance(){
     const step=game.run[game.runPos++];
     game.chapter=step.chapter;
     if(step.type==='checkpoint'){
-      ui.phase='checkpoint'; ui.checkpoint=makeCheckpoint(CHECKPOINTS[step.chapter]); render(); return;
+      ui.phase='checkpoint'; ui.checkpoint=makeCheckpoint(step.chapter); render(); return;
     }
     const sc=SCENES.find(s=>s.id===step.id);
     if(!sc||!eligible(sc)) continue;
@@ -906,19 +1457,37 @@ function chooseOption(index){
   if(ui.outcome) return;
   const sc=ui.currentScene, ch=sc.choices[index], out=weighted(ch.outcomes);
   ui.selectedChoice=ch;
-  const deltas=applyEffects(out.effects||{});
+  const beforeVisible=visibleScores();
+  applyEffects(out.effects||{});
   hardshipTick();
+  const afterVisible=visibleScores();
+  const deltas=[];
+  const financeDelta=afterVisible.finances-beforeVisible.finances;
+  const healthDelta=afterVisible.familyHealth-beforeVisible.familyHealth;
+  if(financeDelta) deltas.push({label:'Finances',text:(financeDelta>0?'+':'')+financeDelta,good:financeDelta>0});
+  if(healthDelta) deltas.push({label:'Family Health',text:(healthDelta>0?'+':'')+healthDelta,good:healthDelta>0});
+  game.experiences.push({sceneId:sc.id,chapter:sc.chapter,year:sc.year,title:sc.title,choiceText:ch.text,outcomeText:out.text});
   if(out.source && !sc.source) sc._tempSource=out.source;
   ui.outcome={...out,deltas,learn:out.learn||ch.learn||sc.learn||null,source:out.source||sc.source||null};
   render();
 }
 
 function answerCheckpoint(i){
-  if(ui.qAnswered)return;
-  ui.qAnswered=true; game.historianMax+=10;
-  const cp=ui.checkpoint;
-  if(i===cp.correct){game.historian+=10;game.standards[cp.standard]+=1;}
-  ui.checkpoint.selected=i; render();
+  if(ui.checkpoint.answered)return;
+  ui.checkpoint.answered=true;
+  game.historianMax+=10;
+  const q=currentCheckpointQuestion();
+  if(i===q.correct){game.historian+=10;game.standards[q.standard]+=1;}
+  ui.checkpoint.selected=i;
+  render();
+}
+function nextCheckpointQuestion(){
+  if(ui.checkpoint.index<ui.checkpoint.questions.length-1){
+    ui.checkpoint.index++;
+    ui.checkpoint.selected=null;
+    ui.checkpoint.answered=false;
+    render();
+  } else advance();
 }
 
 function finish(kind){ui.phase='ending';ui.endingKind=kind;render();}
@@ -932,8 +1501,10 @@ window.showTeacher=()=>openModal(`<h2>Teacher Notes & Learning Goals</h2>
 <h3>US.39 — Causes of the Great Depression</h3><p>Students experience consumer credit and debt, speculation and margin buying, agricultural weakness, bank failures, falling purchasing power, declining demand, business contraction, and unemployment as interacting forces.</p>
 <h3>US.40 — Dust Bowl</h3><p>Students encounter drought, exposed soil, erosion, farm loss, and migration. Only the Great Plains farmer directly experiences the Dust Bowl; other characters learn it through a family migration scenario so the game does not imply the Dust Bowl struck every farm.</p>
 <h3>US.41 — Effects on Americans</h3><p>Students experience unemployment, food insecurity, health decline, foreclosure/eviction, Hoovervilles, migration, family separation, relief, and uneven recovery.</p>
-<div class="warning"><b>Simulation design:</b> choices change odds, but they do not control structural economic forces. The game intentionally prevents the lesson “poor people made poor choices.” Good decisions improve probabilities; luck can still help or hurt.</div>
+<div class="warning"><b>Simulation design:</b> choices change odds, but they do not control structural economic forces. Each playthrough now draws from a larger scene pool, so students in the same role can encounter different family events, work problems, relief experiences, and opportunities. Historian Checks are selected from scenes the student actually experienced.</div>
 <h3>Primary-source basis</h3><p>Short excerpts and factual context are drawn from the two teacher-provided sources: Studs Terkel, <i>Hard Times: An Oral History of the Great Depression</i>, and Robert S. McElvaine, <i>Down & Out in the Great Depression: Letters from the Forgotten Man</i>. Excerpts are intentionally brief so the simulation remains the main learning experience.</p>
+<h3>Two visible status scores</h3>
+<p>Students now see only <b>Finances</b> and <b>Family Health</b>. The simulation still tracks cash, debt, income, housing, food, morale, and physical condition behind the scenes. Finances combines liquidity, income, debt load, net worth, and housing security. Family Health combines physical condition, food security, and morale/spirit. Poor food and low morale also directly reduce physical health over time.</p>
 <h3>Important note on numbers</h3><p>Character finances and hidden event odds are simulation mechanics, not claims that every American faced identical probabilities. When the game gives a national historical statistic, it is labeled in “Behind the History.”</p>`);
 window.showSources=()=>openModal(`<h2>Sources Used in the Simulation</h2>
 <p><b>Studs Terkel, <i>Hard Times: An Oral History of the Great Depression</i>.</b> Oral histories used for farmer foreclosure, job-search memories, and an example of unusual business success.</p>
@@ -943,26 +1514,64 @@ window.showSources=()=>openModal(`<h2>Sources Used in the Simulation</h2>
 function header(){return `<div class="masthead"><h1>Hard Times</h1><div class="deck">A choose-your-own-adventure simulation of the Great Depression, 1925–1939. Your choices matter. So do forces you cannot control. <span style="opacity:.65">Revised classroom edition</span></div><div class="top-actions"><button class="small-btn" onclick="showTeacher()">Teacher / Standards</button><button class="small-btn" onclick="showSources()">Sources</button>${game&&game.run?'<button class="small-btn" onclick="if(confirm(\'Reset the simulation?\')) resetGame()">Reset</button>':''}</div></div>`}
 function sidebar(){
   if(!game||!game.run)return'';
-  const tile=(icon,label,v)=>{const [word,cls]=statusWord(v);return `<div class="life-tile ${cls}"><div class="life-label">${icon} ${label}</div><b>${word}</b></div>`};
-  return `<aside class="sidebar"><h3>Your Household</h3>
-  <div class="networth-card"><div class="kicker">Net Worth</div><div class="big-money">${money(netWorth())}</div></div>
-  <div class="quick-money"><div>Cash<b>${money(game.cash)}</b></div><div>Debt<b>${money(game.debt)}</b></div></div>
-  <div class="life-grid">${tile('🍞','Food',game.food)}${tile('🏠','Home',game.housing)}${tile('♥','Health',game.health)}${tile('☀','Morale',game.morale)}</div>
-  <div class="work-card"><b>${game.employment}</b><br>${money(game.income)} annual income<br>${roleName()} · ${variantName()}<br><br><b>Family:</b> ${game.familySeparated?'Separated by hardship':'Together'}${game.childAway?' · daughter with relatives':''}${game.olderChildWorking?' · son working away':''}</div>
+
+  const f=financesScore();
+  const h=familyHealthScore();
+  const [fWord,fClass]=statusWord(f);
+  const [hWord,hClass]=statusWord(h);
+  const ages=familyAges(game.currentYear);
+
+  const scoreBox=(label,value,word,cls,details)=>`
+    <div class="summary-score ${cls}">
+      <div class="score-top">
+        <div><div class="score-label">${label}</div><div class="score-word">${word}</div></div>
+        <div class="score-number">${value}</div>
+      </div>
+      <div class="score-bar"><span style="width:${value}%"></span></div>
+      <div class="summary-detail">${details}</div>
+    </div>`;
+
+  return `<aside class="sidebar">
+    <h3>The ${game.family.surname} Family</h3>
+
+    ${scoreBox(
+      'Finances',
+      f,
+      fWord,
+      fClass,
+      `<b>Net worth:</b> ${money(netWorth())}<br><b>Work:</b> ${game.employment}<br><b>Home:</b> ${homeWord(game.housing)}`
+    )}
+
+    ${scoreBox(
+      'Family Health',
+      h,
+      hWord,
+      hClass,
+      `<b>Food:</b> ${foodWord(game.food)}<br><b>Spirits:</b> ${spiritsWord(game.morale)}<br><span style="font-size:10px">Food + spirits directly affect family health.</span>`
+    )}
+
+    <div class="family-line">
+      <b>${game.family.self}</b> & ${game.family.spouse}<br>
+      ${game.family.older}, age ${ages.older} · ${game.family.younger}, age ${ages.younger}<br><br>
+      ${roleName()} · ${variantName()}<br>
+      ${game.familySeparated?'Family separated by hardship':'Family together'}
+      ${game.childAway?' · younger child with relatives':''}
+      ${game.olderChildWorking?' · older child working away':''}
+    </div>
   </aside>`;
 }
 function chapterStrip(){
   const c=CHAPTERS[game.chapter-1], progress=((game.runPos)/(game.run.length))*100;
   return `<div class="chapter-strip"><div><strong>Chapter ${c.n}: ${c.title}</strong><br>${c.years} · ${c.subtitle}</div><div class="progress"><span style="width:${progress}%"></span></div></div>`;
 }
-function renderStart(){return `${header()}<div class="card" style="margin-top:18px"><div class="date">1925 · Before the Crash</div><h2>Choose the life you will try to protect.</h2><p class="scene-text">You are about to step into one named family's life. You will begin with a spouse, a 14-year-old son, and a 9-year-old daughter. The country looks prosperous, but each occupation sits on a different fault line. There is no perfect path through what is coming.</p><div class="start-grid">
+function renderStart(){return `${header()}<div class="card" style="margin-top:18px"><div class="date">1925 · Before the Crash</div><h2>Choose the life you will try to protect.</h2><p class="scene-text">You are about to step into one named family's life. You will begin with a spouse, a 9-year-old son, and a 6-year-old daughter. The country looks prosperous, but each occupation sits on a different fault line. There is no perfect path through what is coming.</p><div class="start-grid">
 <button class="role" onclick="startRole('farmer')"><h3>Farmer</h3><p>You own land, but debt and weak crop prices already threaten the farm. Geography will determine whether the Dust Bowl strikes you directly.</p></button>
 <button class="role" onclick="startRole('worker')"><h3>Wage Worker</h3><p>Your security depends on an employer and a paycheck. When demand collapses, the layoff list becomes personal.</p></button>
 <button class="role" onclick="startRole('business')"><h3>Small Business Owner</h3><p>Your store connects customers, credit, banks, suppliers, and wages. A fall in purchasing power can hit every part at once.</p></button>
 </div></div>`}
 function renderPrelude(){
   const key=game.role+'_'+game.variant; const p=CHARACTER_INTROS[key];
-  return `${header()}<div class="card" style="margin-top:18px"><div class="date">Meet your character · 1925</div><h2>${game.family.self} of the ${game.family.surname} family</h2><div class="prelude-grid"><div class="prelude-box"><h3>${p.title}</h3>${p.html(game)}<div class="quote-chip">${p.quote1}</div><div class="quote-chip">${p.quote2}</div></div><div class="prelude-box"><h3>Your household</h3><p><b>Spouse:</b> ${game.family.spouse}</p><p><b>Older child:</b> ${game.family.older}, age 14</p><p><b>Younger child:</b> ${game.family.younger}, age 9</p><p><b>What matters most at the start:</b> keeping the family together, keeping enough cash on hand, and not assuming the good times will last forever.</p><div class="fictional-voice"><b>Kitchen-table moment</b>Before the story begins in earnest, your household already has hopes, routines, and worries. That is what the Depression will test.</div></div></div><div class="continue-row"><button class="primary" onclick="beginGame()">Begin the story →</button></div></div>`
+  return `${header()}<div class="card" style="margin-top:18px"><div class="date">Meet your character · 1925</div><h2>${game.family.self} of the ${game.family.surname} family</h2><div class="prelude-grid"><div class="prelude-box"><h3>${p.title}</h3>${p.html(game)}<div class="quote-chip">${p.quote1}</div><div class="quote-chip">${p.quote2}</div></div><div class="prelude-box"><h3>Your household</h3><p><b>Spouse:</b> ${game.family.spouse}</p><p><b>Older child:</b> ${game.family.older}, age 9</p><p><b>Younger child:</b> ${game.family.younger}, age 6</p><p><b>What matters most at the start:</b> keeping the family together, keeping enough cash on hand, and not assuming the good times will last forever.</p><div class="fictional-voice"><b>Kitchen-table moment</b>Before the story begins in earnest, your household already has hopes, routines, and worries. That is what the Depression will test.</div></div></div><div class="continue-row"><button class="primary" onclick="beginGame()">Begin the story →</button></div></div>`
 }
 
 function renderVariant(){
@@ -989,23 +1598,49 @@ function renderScene(){
   return `${header()}<div class="layout">${sidebar()}<main class="main">${chapterStrip()}${ui.economyNotice?`<div class="economy-notice"><b>Meanwhile, the economy moves without asking you</b><br>${ui.economyNotice}</div>`:''}<section class="card"><div class="date">${s.year}</div><h2>${s.title}</h2><div class="family-callout">${family}</div><div class="story-prose">${story}</div>${fictionalVoice}${artifact}<div class="choices">${s.choices.map((c,i)=>`<button class="choice" onclick="chooseOption(${i})" ${ui.outcome?'disabled':''}>${c.text}</button>`).join('')}</div>${out}</section></main></div>`;
 }
 function renderCheckpoint(){
-  const cp=ui.checkpoint, c=CHAPTERS[game.chapter-1];
-  return `${header()}<div class="layout">${sidebar()}<main class="main">${chapterStrip()}<section class="card history-q"><div class="date">Historian Check · ${cp.standard}</div><h2>Explain what just happened.</h2><p class="scene-text">${cp.q}</p><div class="options">${cp.options.map((a,i)=>{
-    let cls='qbtn'; if(ui.qAnswered){if(i===cp.correct)cls+=' correct';else if(i===cp.selected)cls+=' wrong';}
-    return `<button class="${cls}" onclick="answerCheckpoint(${i})" ${ui.qAnswered?'disabled':''}>${a.text}</button>`}).join('')}</div>${ui.qAnswered?`<div class="behind"><h4>${cp.selected===cp.correct?'Correct':'Not quite'}</h4><div>${cp.explain}</div></div><div class="continue-row"><button class="primary" onclick="advance()">Begin next chapter →</button></div>`:''}</section></main></div>`;
+  const cp=ui.checkpoint, q=currentCheckpointQuestion(), c=CHAPTERS[game.chapter-1];
+  const experience=q.experience?`<div class="family-callout"><b>This question comes from your playthrough:</b> ${q.experience.title}<br><span style="font-size:12px">${q.experience.choiceText}</span></div>`:'';
+  return `${header()}<div class="layout">${sidebar()}<main class="main">${chapterStrip()}<section class="card history-q"><div class="date">Historian Check · Question ${cp.index+1} of ${cp.questions.length} · ${q.standard}</div><h2>Explain what you just experienced.</h2>${experience}<p class="scene-text">${q.q}</p><div class="options">${q.options.map((a,i)=>{
+    let cls='qbtn'; if(cp.answered){if(i===q.correct)cls+=' correct';else if(i===cp.selected)cls+=' wrong';}
+    return `<button class="${cls}" onclick="answerCheckpoint(${i})" ${cp.answered?'disabled':''}>${a.text}</button>`}).join('')}</div>${cp.answered?`<div class="behind"><h4>${cp.selected===q.correct?'Correct':'Not quite'}</h4><div>${q.explain}</div></div><div class="continue-row"><button class="primary" onclick="nextCheckpointQuestion()">${cp.index<cp.questions.length-1?'Next question →':'Continue the story →'}</button></div>`:''}</section></main></div>`;
 }
 function endingMetrics(){
-  const wellbeing=(game.health+game.food+game.housing+game.morale)/4;
-  const wealthAdj=Math.max(-12,Math.min(8,netWorth()/700));
-  const survival = clamp(Math.round(wellbeing + wealthAdj));
-  let grade='F',title='THE ECONOMY HAS DEFEATED YOU',text='The decade took nearly everything. Your file will be stored under “Please Do Not Try to Time the Bottom.”';
-  if(survival>=96 && game.health>88 && game.food>88 && game.housing>82 && game.morale>78 && netWorth()>0){grade='A+';title='DEPRESSION WIZARD';text='You reached 1939 with unusual financial stability, health, and family resilience. Economists are taking notes. Your neighbors suspect witchcraft.';}
-  else if(survival>=82){grade='A';title='HARD-TIMES STRATEGIST';text='You did not control the Depression, but you built cushions, adapted, and survived shocks that ruined many households.';}
-  else if(survival>=70){grade='B';title='HARD TIMES PROFESSIONAL';text='You lost money, sleep, and probably several good meals—but you are standing, housed, and far wiser about credit.';}
-  else if(survival>=58){grade='C';title='HOOVERVILLE-ADJACENT SURVIVOR';text='Your household took serious damage. On the plus side, you now possess advanced expertise in stretching soup and distrusting easy credit.';}
-  else if(survival>=45){grade='D';title='ECONOMIC CAUTIONARY TALE';text='Future students may encounter your finances in a sidebar titled “This Got Out of Hand Quickly.”';}
-  if(game.wealthBreak&&netWorth()>7000){title='THE UNLIKELY WINNER';text='Against the odds, you emerged with real wealth. That happened to some Americans—but your path required resources, timing, decisions, and a large helping of luck.';grade=(survival>=92&&netWorth()>8500)?'A+':'A';}
-  return {survival,grade,title,text};
+  const finance=financesScore();
+  const health=familyHealthScore();
+  const survival=clamp(Math.round(health*.56 + finance*.44));
+
+  let grade='F',title='THE ECONOMY HAS DEFEATED YOU',
+      text='The decade took nearly everything. Your file will be stored under “Please Do Not Try to Time the Bottom.”';
+
+  // An A remains intentionally uncommon.
+  if(survival>=92 && health>=88 && finance>=84 && netWorth()>900){
+    grade='A+';
+    title='DEPRESSION WIZARD';
+    text='You reached 1939 with unusually strong finances and family health. This is an exceptional outcome.';
+  } else if(survival>=82 && health>=74 && finance>=70){
+    grade='A';
+    title='HARD-TIMES STRATEGIST';
+    text='You navigated the decade unusually well. Your decisions helped, and enough luck broke your way to preserve real stability.';
+  } else if(survival>=67){
+    grade='B';
+    title='HARD TIMES PROFESSIONAL';
+    text='The Depression hurt. You lost money, comfort, and certainty, but your family adapted and remained substantially intact.';
+  } else if(survival>=51){
+    grade='C';
+    title='BATTERED BUT STANDING';
+    text='Your family took serious damage and made painful sacrifices, but you reached 1939 still fighting.';
+  } else if(survival>=37){
+    grade='D';
+    title='ECONOMIC CAUTIONARY TALE';
+    text='You survived a punishing decade, but the household remains in serious distress.';
+  }
+
+  if(game.wealthBreak&&netWorth()>7200&&survival>=72){
+    title='THE UNLIKELY WINNER';
+    text='Against the odds, you emerged with real wealth. Some Americans did—but this required resources, timing, decisions, and a large helping of luck.';
+    grade=survival>=90?'A+':'A';
+  }
+  return {survival,grade,title,text,finance,health};
 }
 function renderEnding(){
   if(ui.endingKind==='starvation'){
@@ -1014,7 +1649,7 @@ function renderEnding(){
   const m=endingMetrics(); const histPct=game.historianMax?Math.round(game.historian/game.historianMax*100):0;
   const luckText=game.luckIndex>=5?'Fortune repeatedly broke your way.':game.luckIndex>=1?'Luck helped more than it hurt.':game.luckIndex<=-5?'You absorbed a brutal run of bad luck.':game.luckIndex<=-1?'Bad luck hurt more than good luck helped.':'Your luck was roughly balanced.';
   const std=(k)=>game.standards[k]>=1?'Demonstrated':'Needs review';
-  return `${header()}<div class="layout">${sidebar()}<main class="main"><section class="ending"><div class="date">1939 · Final Report</div><h2>${m.title}</h2><div class="grade">${m.grade}</div><p style="font-size:19px;line-height:1.5">${m.text}</p><div class="ending-grid"><div class="ending-box"><b>Final Net Worth</b>${money(netWorth())}</div><div class="ending-box"><b>Historian Score</b>${histPct}%</div><div class="ending-box"><b>Luck Index</b>${game.luckIndex>0?'+':''}${game.luckIndex} · ${luckText}</div><div class="ending-box"><b>Health / Food</b>${Math.round(game.health)} / ${Math.round(game.food)}</div><div class="ending-box"><b>Housing / Morale</b>${Math.round(game.housing)} / ${Math.round(game.morale)}</div><div class="ending-box"><b>Family</b>${game.familySeparated?'Separated by hardship':'Connected at the end'}</div></div>
+  return `${header()}<div class="layout">${sidebar()}<main class="main"><section class="ending"><div class="date">1939 · Final Report</div><h2>${m.title}</h2><div class="grade">${m.grade}</div><p style="font-size:19px;line-height:1.5">${m.text}</p><div class="ending-grid"><div class="ending-box"><b>Final Net Worth</b>${money(netWorth())}</div><div class="ending-box"><b>Historian Score</b>${histPct}%</div><div class="ending-box"><b>Luck Index</b>${game.luckIndex>0?'+':''}${game.luckIndex} · ${luckText}</div><div class="ending-box"><b>Final Finances</b>${m.finance}/100</div><div class="ending-box"><b>Family Health</b>${m.health}/100</div><div class="ending-box"><b>Family</b>${game.familySeparated?'Separated by hardship':'Connected at the end'}</div></div>
   <div class="standards"><h3>What did you learn?</h3><p><span class="badge">US.39 ${std('US39')}</span> Causes: credit/debt, speculation, agricultural weakness, bank failures, falling demand, business contraction, unemployment.</p><p><span class="badge">US.40 ${std('US40')}</span> Dust Bowl: drought + vulnerable soil + erosion → farm loss and migration.</p><p><span class="badge">US.41 ${std('US41')}</span> Effects: unemployment, migration, homelessness, food insecurity, family strain, relief, and uneven recovery.</p><p><b>Final historical takeaway:</b> your decisions changed your odds, but they never gave you control over bank stability, national demand, drought, employer decisions, or public policy. The Great Depression was not a morality test.</p></div>
   <div class="behind" style="color:#222"><h4>A final real-world reminder</h4><div>Terkel’s oral histories include people who lost farms and jobs—but also unusual cases of businesses that grew during the Depression. Success was possible. It was not typical, and it was never purely the product of virtue.</div>${game.wealthBreak?`<div class="quote">${SOURCES.terkelSuccess.quote}</div><div class="source">${SOURCES.terkelSuccess.cite}</div>`:''}</div>
   <div class="continue-row"><button class="secondary" onclick="window.print()">Print / Save Results</button><button class="primary" onclick="resetGame()">Play Again as Someone Else</button></div></section></main></div>`;
@@ -1030,7 +1665,7 @@ function render(){
   document.getElementById('app').innerHTML=html;
 }
 
-window.startRole=startRole;window.startVariant=startVariant;window.beginGame=beginGame;window.chooseOption=chooseOption;window.answerCheckpoint=answerCheckpoint;window.advance=advance;window.resetGame=resetGame;
+window.startRole=startRole;window.startVariant=startVariant;window.beginGame=beginGame;window.chooseOption=chooseOption;window.answerCheckpoint=answerCheckpoint;window.nextCheckpointQuestion=nextCheckpointQuestion;window.advance=advance;window.resetGame=resetGame;
 render();
 })();
 </script>
